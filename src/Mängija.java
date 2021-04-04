@@ -32,6 +32,23 @@ public class Mängija {
         mana -= rünnakuTugevus;
         vastane.võtabKahju(rünnakuTugevus, true);
     }
+/*
+    public void võtabKahju(int rünnakuTugevus, boolean ignoreeribKaitset) {
+        int kahju = kaitse - rünnakuTugevus;
+        elud -= kahju;
+        System.out.println("Võtsid vastaselt " + nimi + " " + kahju + " elu");
+        if (elud <= 0) {
+            this.sureb();
+        }
+    }
+    
+    public int kaitseVarustuselt() {
+        for (Varustus ese : varustus) {
+            if (ese.getClass() ==)
+        }
+    }
+
+ */
 
     public void uuriVastast (Vastane vastane) {
         vastane.toString();
