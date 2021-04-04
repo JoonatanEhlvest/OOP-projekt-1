@@ -25,7 +25,7 @@ public abstract class Olend {
     }
 
     public void ründa(Olend vastane) {
-        int rünnakuTugevus = randint(0, tugevus);
+        int rünnakuTugevus = Juhuslik.randint(0, tugevus);
         vastane.võtabKahju(rünnakuTugevus, false);
     }
 
@@ -49,8 +49,4 @@ public abstract class Olend {
         this.elud = elud;
     }
 
-    // Suvaline int vahemikus [min, max]
-    public static int randint(int min, int max) {
-        return (int) ((Math.random() * (max - min + 1) + min));
-    }
 }

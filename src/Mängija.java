@@ -11,7 +11,7 @@ public class Mängija extends Olend{
     }
 
     public void ründa(Olend vastane, Relv relv) {
-        int rünnakuTugevus = randint(0, this.getTugevus() + relv.getRünnak());
+        int rünnakuTugevus = Juhuslik.randint(0, this.getTugevus() + relv.getRünnak());
         System.out.println("Ründad vastast " + vastane.getNimi() + " relvaga " + relv.getNimi());
         vastane.võtabKahju(rünnakuTugevus, false);
     }
