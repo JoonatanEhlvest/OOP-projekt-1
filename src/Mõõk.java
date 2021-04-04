@@ -1,2 +1,2 @@
-public class Mõõk extends Varustus{
+public class Mõõk extends Relv{
 }
