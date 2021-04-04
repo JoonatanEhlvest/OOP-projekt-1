@@ -18,3 +18,6 @@ Tõenäosus, et jääb lõksu meetod
 
 Varustuse klass, peaklass + alamklassid
 Lisab juurde elusid või attack stati
+
+Peaklass:
+Suvaline ruumi genereerimine suvalise vastase ja varustusega, kus võib olla lõks
