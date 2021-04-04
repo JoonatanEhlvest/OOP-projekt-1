@@ -1,30 +1,25 @@
-public class Vastane {
-    private int elud;
-    private int nimi;
+public class Vastane extends Olend{
     private int kaitse;
+    private boolean elus = true; // True, kui vastane on elus
 
-    public void võtabKahju(int rünnakuTugevus, boolean ignoreeribKaitset) {
-        int kahju = kaitse - rünnakuTugevus;
-        elud -= kahju;
-        System.out.println("Tegid vastasele " + nimi + " " + kahju + " elu");
-        if (elud <= 0) {
-            this.sureb();
-        }
-    }
-
-    public void sureb() {
-    }
-
-    public int getNimi() {
-        return nimi;
+    public Vastane(String nimi, int elud, int tugevus, int kaitse) {
+        super(elud, nimi, tugevus);
+        this.kaitse = kaitse;
     }
 
     @Override
-    public String toString() {
-        return "Vastane{" +
-                "elud=" + elud +
-                ", nimi=" + nimi +
-                ", kaitse=" + kaitse +
-                '}';
+    public void võtabKahju(int rünnakuTugevus, boolean ignoreeribKaitset) {
+        int kahju = rünnakuTugevus;
+        if (!ignoreeribKaitset) {
+            kahju = rünnakuTugevus - kaitse;
+        }
+        System.out.println("Tegid vastasele " + this.getNimi() + " " + kahju + " elu");
+        super.võtabKahju(kahju, ignoreeribKaitset);
+    }
+
+    @Override
+    public void sureb() {
+        System.out.println(this.getNimi() + " sai surma");
+        super.sureb();
     }
 }

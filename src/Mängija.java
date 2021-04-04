@@ -1,26 +1,25 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Mängija {
-    private String nimi;
-    private int elud;
+public class Mängija extends Olend{
     private int mana;
-    private int tugevus;
     private List<Varustus> varustus = new ArrayList<>();
 
-    public void ründa(Vastane vastane, Relv relv) {
-        // Kui mängijal seda relva pole, ei saa relvaga rünnata.
-        int rünnakuTugevus;
-        if (!varustus.contains(relv)) {
-            System.out.println("Selle nimega relva sul ei ole");
-            System.out.println("Ründad käsitsi");
-            rünnakuTugevus = randint(0, tugevus);
-        }
-        else {
-            rünnakuTugevus = randint(0, tugevus + relv.getRünnak());
-            System.out.println("Ründad vastast " + vastane.getNimi() + " relvaga " + relv.getNimi());
-        }
+    public Mängija(String nimi, int elud, int mana, int tugevus) {
+        super(elud, nimi, tugevus);
+        this.mana = mana;
+    }
+
+    public void ründa(Olend vastane, Relv relv) {
+        int rünnakuTugevus = randint(0, this.getTugevus() + relv.getRünnak());
+        System.out.println("Ründad vastast " + vastane.getNimi() + " relvaga " + relv.getNimi());
         vastane.võtabKahju(rünnakuTugevus, false);
+    }
+
+    @Override
+    public void ründa(Olend vastane) {
+        System.out.println("Ründad vastast " + vastane.getNimi() + " käsitsi");
+        super.ründa(vastane);
     }
 
     public void ründaMaagiaga (Vastane vastane, int rünnakuTugevus) {
@@ -33,14 +32,14 @@ public class Mängija {
         vastane.võtabKahju(rünnakuTugevus, true);
     }
 
-
+    @Override
     public void võtabKahju(int rünnakuTugevus, boolean ignoreeribKaitset) {
-        int kahju = kaitseVarustuselt() - rünnakuTugevus;
-        elud -= kahju;
-        System.out.println("Võtsid kahju " + kahju + " elu");
-        if (elud <= 0) {
-            this.sureb();
+        int kahju = rünnakuTugevus;
+        if (!ignoreeribKaitset) {
+            kahju = rünnakuTugevus - kaitseVarustuselt();
         }
+        System.out.println("Võtsid kahju " + kahju + " elu");
+        super.võtabKahju(kahju, ignoreeribKaitset);
     }
 
     public int kaitseVarustuselt() {
@@ -53,19 +52,14 @@ public class Mängija {
         return kaitseSumma;
     }
 
-
-
+    @Override
     public void sureb() {
         System.out.println("Said surma");
+        super.sureb();
     }
 
     public void uuriVastast (Vastane vastane) {
         vastane.toString();
     }
-    
 
-    // Suvaline int vahemikus [min, max]
-    private int randint(int min, int max) {
-        return (int) ((Math.random() * (max - min + 1) + min));
-    }
 }
