@@ -41,7 +41,7 @@ public class Mängija {
             this.sureb();
         }
     }
-    
+
     public int kaitseVarustuselt() {
         for (Varustus ese : varustus) {
             if (ese.getClass() ==)
