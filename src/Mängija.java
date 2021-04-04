@@ -14,19 +14,49 @@ public class Mängija {
         if (!varustus.contains(relv)) {
             System.out.println("Selle nimega relva sul ei ole");
             System.out.println("Ründad käsitsi");
-            rünnakuTugevus = randint(0, tugevus + 1);
+            rünnakuTugevus = randint(0, tugevus);
         }
         else {
+            rünnakuTugevus = randint(0, tugevus + relv.getRünnak());
             System.out.println("Ründad vastast " + vastane.getNimi() + " relvaga " + relv.getNimi());
-            rünnakuTugevus = randint(0, tugevus + relv.getRünnak() + 1);
         }
-        vastane.võtabKahju(rünnakuTugevus);
+        vastane.võtabKahju(rünnakuTugevus, false);
     }
 
+    public void ründaMaagiaga (Vastane vastane, int rünnakuTugevus) {
+        System.out.println("Ründad vastast " + vastane.getNimi() + " maagiaga");
+        int manaJääk = mana - rünnakuTugevus;
+        if (manaJääk < 0) {
+            rünnakuTugevus += manaJääk;
+        }
+        mana -= rünnakuTugevus;
+        vastane.võtabKahju(rünnakuTugevus, true);
+    }
+/*
+    public void võtabKahju(int rünnakuTugevus, boolean ignoreeribKaitset) {
+        int kahju = kaitse - rünnakuTugevus;
+        elud -= kahju;
+        System.out.println("Võtsid vastaselt " + nimi + " " + kahju + " elu");
+        if (elud <= 0) {
+            this.sureb();
+        }
+    }
+    
+    public int kaitseVarustuselt() {
+        for (Varustus ese : varustus) {
+            if (ese.getClass() ==)
+        }
+    }
+
+ */
+
+    public void uuriVastast (Vastane vastane) {
+        vastane.toString();
+    }
     
 
-    // Suvaline int vahemikus [min, max)
+    // Suvaline int vahemikus [min, max]
     private int randint(int min, int max) {
-        return (int) ((Math.random() * (max - min) + min));
+        return (int) ((Math.random() * (max - min + 1) + min));
     }
 }
