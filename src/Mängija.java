@@ -7,7 +7,7 @@ public class Mängija {
     private int mana;
     private List<Varustus> varustus = new ArrayList<>();
 
-    public void ründa(String vastane, ) {
-
+    public void ründa(String vastane, Relv relv) {
+        
     }
 }
