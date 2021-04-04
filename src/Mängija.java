@@ -29,6 +29,7 @@ public class Mängija {
         if (manaJääk < 0) {
             rünnakuTugevus += manaJääk;
         }
+        mana -= rünnakuTugevus;
         vastane.võtabKahju(rünnakuTugevus, true);
     }
 
