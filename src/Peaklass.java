@@ -1,6 +1,6 @@
 public class Peaklass {
     public static void main(String[] args) {
-        Mängija m1 = new Mängija("Player 1", 20, 20, 5);
+        Mängija m1 = new Mängija("Player 1", 20, 10, 5);
         Vastane v1 = new Rott(6, 4, 2);
 
         automaatneVõitlus(m1, v1);

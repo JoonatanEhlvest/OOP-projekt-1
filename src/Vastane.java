@@ -13,7 +13,7 @@ public class Vastane extends Olend{
         if (!ignoreeribKaitset) {
             kahju = rünnakuTugevus - kaitse;
         }
-        System.out.println("Tegid vastasele " + this.getNimi() + " " + kahju + " elu");
+        System.out.println("Tegid vastasele " + this.getNimi() + " " + kahju + " elu haiget");
         super.võtabKahju(kahju, ignoreeribKaitset);
     }
 
