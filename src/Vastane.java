@@ -6,7 +6,7 @@ public class Vastane {
     public void võtabKahju(int rünnakuTugevus, boolean ignoreeribKaitset) {
         int kahju = kaitse - rünnakuTugevus;
         elud -= kahju;
-        System.out.println("Võtsid vastaselt " + nimi + " " + kahju + " elu");
+        System.out.println("Tegid vastasele " + nimi + " " + kahju + " elu");
         if (elud <= 0) {
             this.sureb();
         }

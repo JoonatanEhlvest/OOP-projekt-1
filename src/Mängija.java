@@ -37,7 +37,7 @@ public class Mängija {
     public void võtabKahju(int rünnakuTugevus, boolean ignoreeribKaitset) {
         int kahju = kaitseVarustuselt() - rünnakuTugevus;
         elud -= kahju;
-        System.out.println("Võtsid vastaselt " + nimi + " " + kahju + " elu");
+        System.out.println("Võtsid kahju " + kahju + " elu");
         if (elud <= 0) {
             this.sureb();
         }
