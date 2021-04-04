@@ -3,7 +3,7 @@ public class Vastane {
     private int nimi;
     private int kaitse;
 
-    public void võtabKahju(int rünnakuTugevus) {
+    public void võtabKahju(int rünnakuTugevus, boolean ignoreeribKaitset) {
         int kahju = kaitse - rünnakuTugevus;
         elud -= kahju;
         System.out.println("Võtsid vastaselt " + nimi + " " + kahju + " elu");
@@ -17,5 +17,14 @@ public class Vastane {
 
     public int getNimi() {
         return nimi;
+    }
+
+    @Override
+    public String toString() {
+        return "Vastane{" +
+                "elud=" + elud +
+                ", nimi=" + nimi +
+                ", kaitse=" + kaitse +
+                '}';
     }
 }
