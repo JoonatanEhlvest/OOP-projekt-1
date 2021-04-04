@@ -1,3 +1,6 @@
+import java.util.List;
+import java.util.Random;
+
 public class Aarderuum extends Koobas{
     private boolean tegelaneRuumis = false;
     private Varustus asi;
@@ -7,8 +10,8 @@ public class Aarderuum extends Koobas{
     }
 
     // Varustus siin meetod
-    public void setAsi(Varustus asi) {
-        this.asi = asi;
+    public void lisaVarustus() {
+        asi = getKõikAsjad().get(getSuvalineArv().nextInt(getKõikAsjad().size()));
+        varustusVõetud(asi);
     }
-
 }
