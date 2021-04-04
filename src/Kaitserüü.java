@@ -1,11 +1,11 @@
 public class Kaitserüü extends Varustus{
-    int eludelisa;
+    private int kaitse;
 
-    public Kaitserüü(int eludelisa) {
-        this.eludelisa = eludelisa;
+    public Kaitserüü(int kaitse) {
+        this.kaitse = kaitse;
     }
 
-    public int getEludelisa() {
-        return eludelisa;
+    public int getKaitse() {
+        return kaitse;
     }
 }

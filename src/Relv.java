@@ -11,7 +11,7 @@ public class Relv extends Varustus{
         return rünnak;
     }
 
-    public int getNimi() {
+    public String getNimi() {
         return nimi;
     }
 }

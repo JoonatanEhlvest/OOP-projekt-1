@@ -32,9 +32,10 @@ public class Mängija {
         mana -= rünnakuTugevus;
         vastane.võtabKahju(rünnakuTugevus, true);
     }
-/*
+
+
     public void võtabKahju(int rünnakuTugevus, boolean ignoreeribKaitset) {
-        int kahju = kaitse - rünnakuTugevus;
+        int kahju = kaitseVarustuselt() - rünnakuTugevus;
         elud -= kahju;
         System.out.println("Võtsid vastaselt " + nimi + " " + kahju + " elu");
         if (elud <= 0) {
@@ -43,12 +44,20 @@ public class Mängija {
     }
 
     public int kaitseVarustuselt() {
+        int kaitseSumma = 0;
         for (Varustus ese : varustus) {
-            if (ese.getClass() ==)
+            if (ese instanceof Kaitserüü) {
+                kaitseSumma += ((Kaitserüü) ese).getKaitse();
+            }
         }
+        return kaitseSumma;
     }
 
- */
+
+
+    public void sureb() {
+        System.out.println("Said surma");
+    }
 
     public void uuriVastast (Vastane vastane) {
         vastane.toString();
