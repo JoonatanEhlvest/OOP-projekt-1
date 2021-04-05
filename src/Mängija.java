@@ -53,7 +53,8 @@ public class Mängija extends Olend{
     }
 
     public void puhka() {
-        System.out.println("Taastasid oma elusid " + getEludeTaastumine() + " võrra");
+        System.out.println("Taastasid oma elusid " + getEludeTaastumine() + " võrra" +
+                            " ja mana " + manaTaastumine + " võrra");
         taastaElusid(getEludeTaastumine());
         taastaMana(manaTaastumine);
     }

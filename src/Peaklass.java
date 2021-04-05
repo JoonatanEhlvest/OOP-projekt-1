@@ -1,6 +1,6 @@
 public class Peaklass {
     public static void main(String[] args) {
-        Mängija m1 = new Mängija("Player 1", 20, 10, 5, 2);
+        Mängija m1 = new Mängija("Player 1", 20, 10, 5, 2, 1);
         Vastane v1 = new Rott(6, 4, 2);
         Ogad lõks1 = new Ogad(8,40, true);
 
