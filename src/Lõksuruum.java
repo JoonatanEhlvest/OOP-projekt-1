@@ -6,11 +6,13 @@ public class Lõksuruum extends Koobas{
         tegelaneRuumis = true;
     }
 
+    @Override
+    public boolean isTegelaneRuumis() {
+        return false;
+    }
+
     public Lõksuruum(Lõks lõks) {
         this.lõks = lõks;
     }
 
-    public boolean isTegelaneRuumis(Koobas ruum) {
-        return tegelaneRuumis;
-    }
 }

@@ -1,7 +1,4 @@
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class Peaklass {
     /*
@@ -72,21 +69,38 @@ public class Peaklass {
         List<String> nimed = Arrays.asList("Rott", "Luukere", "Vampiir");
 
         /** KOOPA RUUMID */
-
-        Koobas koobas = new Koobas();
+        List<Koobas> koobas = new ArrayList<>();
         Aarderuum aarderuum = new Aarderuum("Aarderuum");
         Võitlusruum võitlusruum1 = new Võitlusruum(new Vastane(RandElem(nimed),Juhuslik.randint(5,20),Juhuslik.randint(1,10),Juhuslik.randint(0,5)),"Tuba1");
         Võitlusruum võitlusruum2 = new Võitlusruum(new Vastane(RandElem(nimed),Juhuslik.randint(5,20),Juhuslik.randint(1,10),Juhuslik.randint(0,5)),"Tuba2");
         Võitlusruum võitlusruum3 = new Võitlusruum(new Vastane(RandElem(nimed),Juhuslik.randint(5,20),Juhuslik.randint(1,10),Juhuslik.randint(0,5)),"Tuba3");
         Lõpuruum lõpuruum = new Lõpuruum(new Vastane("Boss",100,30,20),"ViimaneTuba");
-        koobas.lisaRuum(aarderuum);
-        koobas.lisaRuum(võitlusruum1);
-        koobas.lisaRuum(võitlusruum2);
-        koobas.lisaRuum(võitlusruum3);
-        Collections.shuffle(koobas.getRuumid());
-        koobas.lisaRuum(lõpuruum);
-        System.out.println(koobas);
+        koobas.add(aarderuum);
+        koobas.add(võitlusruum1);
+        koobas.add(võitlusruum2);
+        koobas.add(võitlusruum3);
+        Collections.shuffle(koobas);
+        koobas.add(lõpuruum);
 
         /** MÄNG ALGAB */
+
+        boolean käib = true;
+        Scanner sc= new Scanner(System.in);
+        int ruumiNumber = 0;
+
+        while (käib) {
+            System.out.println("Sisenesid koopasse");
+            System.out.println("Mida soovid teha?:");
+            System.out.println("Liigu edasi: 1");
+            System.out.println("Vaata kaarti: 2");
+            System.out.println("Vaata oma varustust: 3");
+            int tegevus = sc.nextInt();
+            if (tegevus == 1) {
+                koobas.get(ruumiNumber).onRuumis();
+                System.out.println(koobas.get(ruumiNumber).isTegelaneRuumis());
+
+
+            }
+        }
     }
 }

@@ -12,8 +12,12 @@ public class Lõpuruum extends Koobas{
         this.nimi = nimi;
     }
 
-    public boolean isTegelaneRuumis(Koobas ruum) {
+    public boolean isTegelaneRuumis() {
         return tegelaneRuumis;
+    }
+
+    public Vastane getVastane() {
+        return vastane;
     }
 
     @Override

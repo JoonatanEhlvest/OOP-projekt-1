@@ -2,28 +2,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Koobas extends Varustus{
-    private List<Koobas> ruumid = new ArrayList<>();
+public abstract class Koobas extends Varustus{
     private Random suvalineArv = new Random();
-
-    public Koobas suvalineRuum(){
-        return ruumid.get(suvalineArv.nextInt(ruumid.size()));
-    }
-
-    public void lisaRuum(Koobas ruum) {
-        ruumid.add(ruum);
-    }
 
     public Random getSuvalineArv() {
         return suvalineArv;
     }
 
-    public List<Koobas> getRuumid() {
-        return ruumid;
-    }
+    public abstract void onRuumis();
 
-    @Override
-    public String toString() {
-        return "Koobas { ruumid=" + ruumid + '}';
-    }
+    public abstract boolean isTegelaneRuumis();
 }

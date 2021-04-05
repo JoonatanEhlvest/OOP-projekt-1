@@ -12,14 +12,14 @@ public class Võitlusruum extends Koobas{
         tegelaneRuumis = true;
     }
 
+    public boolean isTegelaneRuumis() {
+        return tegelaneRuumis;
+    }
 
     public Vastane getVastane() {
         return vastane;
     }
 
-    public boolean isTegelaneRuumis(Koobas ruum) {
-        return tegelaneRuumis;
-    }
 
     @Override
     public String toString() {

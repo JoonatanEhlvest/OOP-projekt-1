@@ -10,6 +10,9 @@ public class Aarderuum extends Koobas{
         this.nimi = nimi;
     }
 
+    public boolean isTegelaneRuumis() {
+        return tegelaneRuumis;
+    }
     public void onRuumis(){
         tegelaneRuumis = true;
     }
@@ -18,10 +21,6 @@ public class Aarderuum extends Koobas{
     public void lisaVarustus() {
         asi = getKõikAsjad().get(getSuvalineArv().nextInt(getKõikAsjad().size()));
         varustusVõetud(asi);
-    }
-
-    public boolean isTegelaneRuumis() {
-        return tegelaneRuumis;
     }
 
     @Override
