@@ -9,11 +9,17 @@ public class Koobas extends Varustus{
     public Koobas suvalineRuum(){
         return ruumid.get(suvalineArv.nextInt(ruumid.size()));
     }
+
     public void lisaRuum(Koobas ruum) {
         ruumid.add(ruum);
     }
 
     public Random getSuvalineArv() {
         return suvalineArv;
+    }
+
+    @Override
+    public String toString() {
+        return "Koobas{ruumid=" + ruumid + '}';
     }
 }

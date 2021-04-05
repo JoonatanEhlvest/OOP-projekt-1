@@ -1,4 +1,4 @@
-public class Võitlusruum extends Koobas{
+public class lõpuruum extends Koobas{
     private boolean tegelaneRuumis = false;
     private Vastane vastane;
 
@@ -6,7 +6,7 @@ public class Võitlusruum extends Koobas{
         tegelaneRuumis = true;
     }
 
-    public Võitlusruum(Vastane vastane) {
+    public lõpuruum(Vastane vastane) {
         this.vastane = vastane;
     }
 

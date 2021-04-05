@@ -1,13 +1,13 @@
-public class Võitlusruum extends Koobas{
+public class Lõksuruum extends Koobas{
     private boolean tegelaneRuumis = false;
-    private Vastane vastane;
+    private Lõks lõks;
 
     public void onRuumis(){
         tegelaneRuumis = true;
     }
 
-    public Võitlusruum(Vastane vastane) {
-        this.vastane = vastane;
+    public Lõksuruum(Lõks lõks) {
+        this.lõks = lõks;
     }
 
     public boolean isTegelaneRuumis(Koobas ruum) {
