@@ -14,4 +14,12 @@ public class Relv extends Varustus{
     public String getNimi() {
         return nimi;
     }
+
+    @Override
+    public String toString() {
+        return "Relv{" +
+                "rünnak=" + rünnak +
+                ", nimi='" + nimi + '\'' +
+                '}';
+    }
 }
