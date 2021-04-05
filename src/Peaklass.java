@@ -1,17 +1,9 @@
-<<<<<<< Updated upstream
-=======
-import java.util.ArrayList;
->>>>>>> Stashed changes
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 public class Peaklass {
-
-<<<<<<< Updated upstream
-=======
     /*
->>>>>>> Stashed changes
     public static void main(String[] args) {
         Mängija m1 = new Mängija("Player 1", 20, 10, 5, 2,1);
         Vastane v1 = new Rott(6, 4, 2);
@@ -28,8 +20,7 @@ public class Peaklass {
         lõks1.aktiveerumine(m1);
         System.out.println("Sul on alles " + m1.getElud() + " elu");
 
-    }
-    */
+    } */
     private static void automaatneVõitlus(Mängija mängija, Vastane vastane) {
         while (true) {
             if (mängija.isElus()) {
@@ -42,17 +33,13 @@ public class Peaklass {
             } else break;
         }
     }
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
     public String RandElem(List<Integer> list) {
         Random rand = new Random();
         return list.get(rand.nextInt(list.size()));
     }
 
     public static void main(String[] args) {
-<<<<<<< Updated upstream
         /*
         Mängija m1 = new Mängija("Player 1", 20, 10, 5, 2,1);
         Vastane v1 = new Rott(6, 4, 2);
@@ -70,18 +57,13 @@ public class Peaklass {
         System.out.println("Sul on alles " + m1.getElud() + " elu");
         */
 
-=======
->>>>>>> Stashed changes
+
         Mängija m1 = new Mängija("Player 1", 20, 10, 5);
 
         /** VARUSTUSE LISAMINE */
         Varustus varustuseList = new Varustus();
         varustuseList.lisaAsi(new Relv(Juhuslik.randint(1, 10), "Katkine Mõõk"));
-<<<<<<< Updated upstream
         varustuseList.lisaAsi(new Kaitserüü(Juhuslik.randint(1, 10), "Mõrane Raudrüü"));
-=======
-        varustuseList.lisaAsi(new Kaitserüü(Juhuslik.randint(1, 10),"Mõrane Raudrüü"));
->>>>>>> Stashed changes
 
         System.out.println(varustuseList.getKõikAsjad());
 
@@ -91,22 +73,11 @@ public class Peaklass {
         /** KOOPA RUUMID */
         Koobas koobas = new Koobas();
         Koobas aarderuum = new Aarderuum();
-<<<<<<< Updated upstream
-        Koobas võitlusruum = new Võitlusruum(new Vastane(RandElem(nimed), Juhuslik.randint(5, 20), Juhuslik.randint(1, 10)))
-
-        /** MÄNG ALGAB */
-        while (true) {
-
-        }
-=======
         Koobas võitlusruum = new Võitlusruum(new Vastane(RandElem(nimed),Juhuslik.randint(5,20),Juhuslik.randint(1,10)))
 
         /** MÄNG ALGAB */
         while (true){
 
         }
-
-
->>>>>>> Stashed changes
     }
 }
