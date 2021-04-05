@@ -9,4 +9,8 @@ public class Võitlusruum extends Koobas{
     public Võitlusruum(Vastane vastane) {
         this.vastane = vastane;
     }
+
+    public boolean isTegelaneRuumis(Koobas ruum) {
+        return tegelaneRuumis;
+    }
 }
