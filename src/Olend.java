@@ -1,7 +1,7 @@
 public abstract class Olend {
     private int maxElud;
     private int elud;
-    private int eludeTaastumine;
+    private int eludeTaastumine; // Elude taastumiskiirus
     private String nimi;
     private int tugevus;
     private boolean elus = true; // True, kui olend on elus
@@ -19,9 +19,7 @@ public abstract class Olend {
     }
 
     public void võtabKahju(int rünnakuTugevus, boolean ignoreeribKaitset) {
-        if (rünnakuTugevus < 0) {
-            rünnakuTugevus = 0;
-        }
+        rünnakuTugevus = Math.max(rünnakuTugevus, 0);
         elud -= rünnakuTugevus;
         if (elud <= 0) {
             this.sureb();
