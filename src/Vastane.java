@@ -21,4 +21,17 @@ public class Vastane extends Olend{
         System.out.println(this.getNimi() + " sai surma");
         super.sureb();
     }
+
+    public void sureb(Varustus võimalikudAsjad, Mängija mängija) {
+        System.out.println(this.getNimi() + " sai surma");
+        super.sureb();
+        int suvaline = Juhuslik.randint(0, võimalikudAsjad.getSize());
+        Varustus asi = võimalikudAsjad.getKõikAsjad().get(suvaline);
+        if (asi instanceof Kaitserüü) {
+            mängija.vahetaRüüd((Kaitserüü) asi);
+        }
+        if (asi instanceof Relv) {
+            mängija.vahetaRelva((Relv) asi);
+        }
+    }
 }

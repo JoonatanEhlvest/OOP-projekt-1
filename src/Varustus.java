@@ -22,4 +22,8 @@ public class Varustus {
         Varustus asi = kõikAsjad.get(suvalineArv.nextInt(kõikAsjad.size()));
 
     }
+
+    public int getSize() {
+        return kõikAsjad.size();
+    }
 }

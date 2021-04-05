@@ -1,11 +1,12 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Locale;
+import java.util.Scanner;
 
 public class Mängija extends Olend{
     private int maxMana;
     private int mana;
     private int manaTaastumine;
-    private List<Varustus> varustus = new ArrayList<>();
+    private Kaitserüü kaitserüü;
+    private Relv relv;
 
     public Mängija(String nimi, int elud, int maxMana, int tugevus, int eludeTaastumine, int manaTaastumine) {
         super(elud, nimi, tugevus, eludeTaastumine);
@@ -70,19 +71,67 @@ public class Mängija extends Olend{
     }
 
     public int kaitseVarustuselt() {
-        int kaitseSumma = 0;
-        for (Varustus ese : varustus) {
-            if (ese instanceof Kaitserüü) {
-                kaitseSumma += ((Kaitserüü) ese).getKaitse();
-            }
-        }
-        return kaitseSumma;
+        return kaitserüü.getKaitse();
     }
 
     @Override
     public void sureb() {
         System.out.println("Said surma");
         super.sureb();
+    }
+
+    public void vahetaRüüd(Kaitserüü uusRüü) {
+        System.out.println("Sul on seljas " + kaitserüü.toString());
+        System.out.println("Kas tahad selle vahetada " + uusRüü.toString() + " vastu");
+
+        while (true) {
+            System.out.println("Kirjuta 'jah', kui tahad uut rüüd ja 'ei', kui ei taha vahetust teha");
+            Scanner sc = new Scanner((System.in));
+            String vastus = sc.nextLine();
+            if (vastus.toLowerCase(Locale.ROOT).equals("JAH")) {
+                setKaitserüü(uusRüü);
+                break;
+            }
+            if (vastus.toLowerCase(Locale.ROOT).equals("EI")) {
+                break;
+            }
+            else System.out.println("Sisestus oli vigane");
+        }
+    }
+
+    public void vahetaRelva(Relv uusRelv) {
+        System.out.println("Sul on käes " + relv.toString());
+        System.out.println("Kas tahad selle vahetada " + uusRelv.toString() + " vastu");
+
+        while (true) {
+            System.out.println("Kirjuta 'jah', kui tahad uut relva ja 'ei', kui ei taha vahetust teha");
+            Scanner sc = new Scanner((System.in));
+            String vastus = sc.nextLine();
+            if (vastus.toLowerCase(Locale.ROOT).equals("JAH")) {
+                setRelv(uusRelv);
+                break;
+            }
+            if (vastus.toLowerCase(Locale.ROOT).equals("EI")) {
+                break;
+            }
+            else System.out.println("Sisestus oli vigane");
+        }
+    }
+
+    public void setKaitserüü(Kaitserüü kaitserüü) {
+        this.kaitserüü = kaitserüü;
+    }
+
+    public void setRelv(Relv relv) {
+        this.relv = relv;
+    }
+
+    public Kaitserüü getKaitserüü() {
+        return kaitserüü;
+    }
+
+    public Relv getRelv() {
+        return relv;
     }
 
     public void uuriVastast (Vastane vastane) {
