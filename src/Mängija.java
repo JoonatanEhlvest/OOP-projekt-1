@@ -2,12 +2,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Mängija extends Olend{
+    private int maxMana;
     private int mana;
+    private int manaTaastumine;
     private List<Varustus> varustus = new ArrayList<>();
 
-    public Mängija(String nimi, int elud, int mana, int tugevus) {
-        super(elud, nimi, tugevus);
-        this.mana = mana;
+    public Mängija(String nimi, int elud, int maxMana, int tugevus, int eludeTaastumine, int manaTaastumine) {
+        super(elud, nimi, tugevus, eludeTaastumine);
+        this.maxMana = maxMana;
+        this.mana = maxMana;
+        this.manaTaastumine = manaTaastumine;
     }
 
     public void ründa(Olend vastane, Relv relv) {
@@ -30,6 +34,28 @@ public class Mängija extends Olend{
         }
         mana -= rünnakuTugevus;
         vastane.võtabKahju(rünnakuTugevus, true);
+    }
+
+    public void taastaMana(int mituTaastada) {
+        // taastab mana mituTaastada väärtuse võrra, kuni maxMana väärtuseni
+        while (maxMana > mana && mituTaastada > 0) {
+            mana++;
+            mituTaastada--;
+        }
+    }
+
+    public void taastaElusid(int mituTaastada) {
+        // taastab elusid mituTaastada väärtuse võrra, kuni maxElud väärtuseni
+        while (getMaxElud() > getElud() && mituTaastada > 0) {
+            setElud(getElud() + 1);
+            mituTaastada--;
+        }
+    }
+
+    public void puhka() {
+        System.out.println("Taastasid oma elusid " + getEludeTaastumine() + " võrra");
+        taastaElusid(getEludeTaastumine());
+        taastaMana(manaTaastumine);
     }
 
     @Override
