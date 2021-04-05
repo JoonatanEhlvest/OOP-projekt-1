@@ -14,4 +14,8 @@ public class Aarderuum extends Koobas{
         asi = getKõikAsjad().get(getSuvalineArv().nextInt(getKõikAsjad().size()));
         varustusVõetud(asi);
     }
+
+    public boolean isTegelaneRuumis() {
+        return tegelaneRuumis;
+    }
 }
