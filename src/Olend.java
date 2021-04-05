@@ -1,13 +1,17 @@
 public abstract class Olend {
+    private int maxElud;
     private int elud;
+    private int eludeTaastumine;
     private String nimi;
     private int tugevus;
     private boolean elus = true; // True, kui olend on elus
 
-    public Olend(int elud, String nimi, int tugevus) {
-        this.elud = elud;
+    public Olend(int maxElud, String nimi, int tugevus, int eludeTaastumine) {
+        this.maxElud = maxElud;
+        this.elud = maxElud;
         this.nimi = nimi;
         this.tugevus = tugevus;
+        this.eludeTaastumine = eludeTaastumine;
     }
 
     public void sureb() {
@@ -49,4 +53,11 @@ public abstract class Olend {
         this.elud = elud;
     }
 
+    public int getMaxElud() {
+        return maxElud;
+    }
+
+    public int getEludeTaastumine() {
+        return eludeTaastumine;
+    }
 }

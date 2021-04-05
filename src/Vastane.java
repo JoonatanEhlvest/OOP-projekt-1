@@ -1,9 +1,8 @@
 public class Vastane extends Olend{
     private int kaitse;
-    private boolean elus = true; // True, kui vastane on elus
 
-    public Vastane(String nimi, int elud, int tugevus, int kaitse) {
-        super(elud, nimi, tugevus);
+    public Vastane(String nimi, int maxElud, int tugevus, int kaitse) {
+        super(maxElud, nimi, tugevus, 0);
         this.kaitse = kaitse;
     }
 
