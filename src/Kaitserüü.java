@@ -10,4 +10,12 @@ public class Kaitserüü extends Varustus{
     public int getKaitse() {
         return kaitse;
     }
+
+    @Override
+    public String toString() {
+        return "Kaitserüü{" +
+                "kaitse=" + kaitse +
+                ", nimi='" + nimi + '\'' +
+                '}';
+    }
 }

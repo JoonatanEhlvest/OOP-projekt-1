@@ -1,20 +1,15 @@
-public class Võitlusruum extends Koobas{
+public class Lõpuruum extends Koobas{
     private boolean tegelaneRuumis = false;
     private Vastane vastane;
     private String nimi;
-
-    public Võitlusruum(Vastane vastane, String nimi) {
-        this.vastane = vastane;
-        this.nimi = nimi;
-    }
 
     public void onRuumis(){
         tegelaneRuumis = true;
     }
 
-
-    public Vastane getVastane() {
-        return vastane;
+    public Lõpuruum(Vastane vastane, String nimi) {
+        this.vastane = vastane;
+        this.nimi = nimi;
     }
 
     public boolean isTegelaneRuumis(Koobas ruum) {
@@ -23,7 +18,7 @@ public class Võitlusruum extends Koobas{
 
     @Override
     public String toString() {
-        return "Võitlusruum{" +
+        return "Lõpuruum{" +
                 "nimi='" + nimi + '\'' +
                 '}';
     }

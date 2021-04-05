@@ -4,6 +4,11 @@ import java.util.Random;
 public class Aarderuum extends Koobas{
     private boolean tegelaneRuumis = false;
     private Varustus asi;
+    private String nimi;
+
+    public Aarderuum(String nimi) {
+        this.nimi = nimi;
+    }
 
     public void onRuumis(){
         tegelaneRuumis = true;
@@ -17,5 +22,12 @@ public class Aarderuum extends Koobas{
 
     public boolean isTegelaneRuumis() {
         return tegelaneRuumis;
+    }
+
+    @Override
+    public String toString() {
+        return "Aarderuum{" +
+                "nimi='" + nimi + '\'' +
+                '}';
     }
 }

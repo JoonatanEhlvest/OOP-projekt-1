@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -34,7 +35,7 @@ public class Peaklass {
         }
     }
 
-    public String RandElem(List<Integer> list) {
+    public static String RandElem(List<String> list) {
         Random rand = new Random();
         return list.get(rand.nextInt(list.size()));
     }
@@ -58,7 +59,7 @@ public class Peaklass {
         */
 
 
-        Mängija m1 = new Mängija("Player 1", 20, 10, 5);
+        Mängija m1 = new Mängija("Player 1", 20, 10, 5,2,1);
 
         /** VARUSTUSE LISAMINE */
         Varustus varustuseList = new Varustus();
@@ -71,13 +72,21 @@ public class Peaklass {
         List<String> nimed = Arrays.asList("Rott", "Luukere", "Vampiir");
 
         /** KOOPA RUUMID */
+
         Koobas koobas = new Koobas();
-        Koobas aarderuum = new Aarderuum();
-        Koobas võitlusruum = new Võitlusruum(new Vastane(RandElem(nimed),Juhuslik.randint(5,20),Juhuslik.randint(1,10)))
+        Aarderuum aarderuum = new Aarderuum("Aarderuum");
+        Võitlusruum võitlusruum1 = new Võitlusruum(new Vastane(RandElem(nimed),Juhuslik.randint(5,20),Juhuslik.randint(1,10),Juhuslik.randint(0,5)),"Tuba1");
+        Võitlusruum võitlusruum2 = new Võitlusruum(new Vastane(RandElem(nimed),Juhuslik.randint(5,20),Juhuslik.randint(1,10),Juhuslik.randint(0,5)),"Tuba2");
+        Võitlusruum võitlusruum3 = new Võitlusruum(new Vastane(RandElem(nimed),Juhuslik.randint(5,20),Juhuslik.randint(1,10),Juhuslik.randint(0,5)),"Tuba3");
+        Lõpuruum lõpuruum = new Lõpuruum(new Vastane("Boss",100,30,20),"ViimaneTuba");
+        koobas.lisaRuum(aarderuum);
+        koobas.lisaRuum(võitlusruum1);
+        koobas.lisaRuum(võitlusruum2);
+        koobas.lisaRuum(võitlusruum3);
+        Collections.shuffle(koobas.getRuumid());
+        koobas.lisaRuum(lõpuruum);
+        System.out.println(koobas);
 
         /** MÄNG ALGAB */
-        while (true){
-
-        }
     }
 }

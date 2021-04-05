@@ -18,8 +18,12 @@ public class Koobas extends Varustus{
         return suvalineArv;
     }
 
+    public List<Koobas> getRuumid() {
+        return ruumid;
+    }
+
     @Override
     public String toString() {
-        return "Koobas{ruumid=" + ruumid + '}';
+        return "Koobas { ruumid=" + ruumid + '}';
     }
 }
