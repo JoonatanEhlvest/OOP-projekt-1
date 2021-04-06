@@ -16,7 +16,7 @@ public class Mängija extends Olend{
     }
 
     public void ründa(Olend vastane, Relv relv) {
-        int rünnakuTugevus = Juhuslik.randint(0, this.getTugevus() + relv.getRünnak());
+        int rünnakuTugevus = Juhuslik.randint(1, this.getTugevus() + relv.getRünnak());
         System.out.println("Ründad vastast " + vastane.getNimi() + " relvaga " + relv.getNimi());
         vastane.võtabKahju(rünnakuTugevus, false);
     }
@@ -66,7 +66,8 @@ public class Mängija extends Olend{
         if (!ignoreeribKaitset) {
             kahju = rünnakuTugevus - kaitseVarustuselt();
         }
-        System.out.println("Võtsid kahju " + kahju + " elu");
+        if (kahju <= 0) System.out.println("Võtsid kahju " + 0 + " elu");
+        else System.out.println("Võtsid kahju " + kahju + " elu");
         super.võtabKahju(kahju, ignoreeribKaitset);
     }
 
@@ -88,11 +89,11 @@ public class Mängija extends Olend{
             System.out.println("Kirjuta 'jah', kui tahad uut rüüd ja 'ei', kui ei taha vahetust teha");
             Scanner sc = new Scanner((System.in));
             String vastus = sc.nextLine();
-            if (vastus.toLowerCase(Locale.ROOT).equals("JAH")) {
+            if (vastus.toLowerCase(Locale.ROOT).equals("jah")) {
                 setKaitserüü(uusRüü);
                 break;
             }
-            if (vastus.toLowerCase(Locale.ROOT).equals("EI")) {
+            if (vastus.toLowerCase(Locale.ROOT).equals("ei")) {
                 break;
             }
             else System.out.println("Sisestus oli vigane");
@@ -100,21 +101,26 @@ public class Mängija extends Olend{
     }
 
     public void vahetaRelva(Relv uusRelv) {
-        System.out.println("Sul on käes " + relv.toString());
-        System.out.println("Kas tahad selle vahetada " + uusRelv.toString() + " vastu");
+        if (relv == null) {
+            System.out.println("Said relva:" + uusRelv);
+            setRelv(uusRelv);
+        }
+        else {
+            System.out.println("Sul on käes " + relv.toString());
+            System.out.println("Kas tahad selle vahetada " + uusRelv.toString() + " vastu");
 
-        while (true) {
-            System.out.println("Kirjuta 'jah', kui tahad uut relva ja 'ei', kui ei taha vahetust teha");
-            Scanner sc = new Scanner((System.in));
-            String vastus = sc.nextLine();
-            if (vastus.toLowerCase(Locale.ROOT).equals("JAH")) {
-                setRelv(uusRelv);
-                break;
+            while (true) {
+                System.out.println("Kirjuta 'jah', kui tahad uut relva ja 'ei', kui ei taha vahetust teha");
+                Scanner sc = new Scanner((System.in));
+                String vastus = sc.nextLine();
+                if (vastus.toLowerCase(Locale.ROOT).equals("jah")) {
+                    setRelv(uusRelv);
+                    break;
+                }
+                if (vastus.toLowerCase(Locale.ROOT).equals("ei")) {
+                    break;
+                } else System.out.println("Sisestus oli vigane");
             }
-            if (vastus.toLowerCase(Locale.ROOT).equals("EI")) {
-                break;
-            }
-            else System.out.println("Sisestus oli vigane");
         }
     }
 
@@ -138,4 +144,11 @@ public class Mängija extends Olend{
         vastane.toString();
     }
 
+    public int getMana() {
+        return mana;
+    }
+
+    public int getManaTaastumine() {
+        return manaTaastumine;
+    }
 }

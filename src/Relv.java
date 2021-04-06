@@ -17,9 +17,6 @@ public class Relv extends Varustus{
 
     @Override
     public String toString() {
-        return "Relv{" +
-                "rünnak=" + rünnak +
-                ", nimi='" + nimi + '\'' +
-                '}';
+        return "[Relv: " + nimi + " ATK " + rünnak + "]";
     }
 }

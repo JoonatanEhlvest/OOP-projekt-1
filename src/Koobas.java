@@ -9,7 +9,5 @@ public abstract class Koobas extends Varustus{
         return suvalineArv;
     }
 
-    public abstract void onRuumis();
-
-    public abstract boolean isTegelaneRuumis();
+    public abstract Vastane getVastane();
 }

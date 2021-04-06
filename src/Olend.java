@@ -27,7 +27,7 @@ public abstract class Olend {
     }
 
     public void ründa(Olend vastane) {
-        int rünnakuTugevus = Juhuslik.randint(0, tugevus);
+        int rünnakuTugevus = Juhuslik.randint(1, tugevus);
         vastane.võtabKahju(rünnakuTugevus, false);
     }
 
