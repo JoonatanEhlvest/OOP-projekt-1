@@ -1,4 +1,4 @@
-public class Vastane extends Olend{
+public class Vastane extends Olend {
     private int kaitse;
 
     public Vastane(String nimi, int maxElud, int tugevus, int kaitse) {
@@ -25,7 +25,7 @@ public class Vastane extends Olend{
     public void sureb(Varustus võimalikudAsjad, Mängija mängija) {
         System.out.println(this.getNimi() + " sai surma");
         super.sureb();
-        int suvaline = Juhuslik.randint(0, võimalikudAsjad.getSize());
+        int suvaline = Juhuslik.randint(0, võimalikudAsjad.getSize() - 1);
         Varustus asi = võimalikudAsjad.getKõikAsjad().get(suvaline);
         if (asi instanceof Kaitserüü) {
             mängija.vahetaRüüd((Kaitserüü) asi);
