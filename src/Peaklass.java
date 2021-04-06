@@ -35,7 +35,7 @@ public class Peaklass {
         if (mängija.getRelv() == null) {
             if (mängija.isElus()) {
                 mängija.ründa(vastane);
-                System.out.println(vastane.getNimi() + " elud on " + vastane.getElud());
+                System.out.println("Vastasel on järgi " + vastane.getElud() + " elu");
                 if (vastane.isElus()) {
                     vastane.ründa(mängija);
                     System.out.println("Sul on järgi " + mängija.getElud() + " elu");
@@ -78,7 +78,7 @@ public class Peaklass {
         */
 
 
-        Mängija m1 = new Mängija("Player 1", 20, 10, 5,2,1);
+        Mängija m1 = new Mängija("Player 1", 40, 10, 5,2,1);
         m1.setKaitserüü(new Kaitserüü(0,"Tavalised Riided"));
 
         /** VARUSTUSE LISAMINE */
@@ -100,7 +100,6 @@ public class Peaklass {
         varustuseList.lisaAsi(new Kaitserüü(Juhuslik.randint(1, 10), "Sõdurisaapad"));
         varustuseList.lisaAsi(new Kaitserüü(10, "Kuldne Rüü"));
 
-        System.out.println(varustuseList.getKõikAsjad());
         Random suvalineArv = new Random();
 
         /** VASTASTE NIMED */
@@ -111,10 +110,10 @@ public class Peaklass {
         Aarderuum aarderuum = new Aarderuum("Aarderuum");
         Lõksuruum lõksuruum = new Lõksuruum(new Lõks(Juhuslik.randint(5,10),60,false));
         int raskus = 1;
-        Võitlusruum võitlusruum1 = new Võitlusruum(new Vastane(RandElem(nimed),Juhuslik.randint(10,20)*raskus,Juhuslik.randint(1,5)*raskus,(raskus-1)*2),"Krüpt");
-        Võitlusruum võitlusruum2 = new Võitlusruum(new Vastane(RandElem(nimed),Juhuslik.randint(10,20)*raskus,Juhuslik.randint(1,5)*raskus,(raskus-1)*2),"Vana Raamatukogu");
-        Võitlusruum võitlusruum3 = new Võitlusruum(new Vastane(RandElem(nimed),Juhuslik.randint(10,20)*raskus,Juhuslik.randint(1,5)*raskus,(raskus-1)*2),"Labor");
-        Lõpuruum lõpuruum = new Lõpuruum(new Vastane("Maailma Hävitaja Võlur",100,30,10),"ViimaneTuba");
+        Võitlusruum võitlusruum1 = new Võitlusruum(new Vastane(RandElem(nimed),Juhuslik.randint(10,20),Juhuslik.randint(3,5)*raskus,(raskus-1)*2),"Krüpt");
+        Võitlusruum võitlusruum2 = new Võitlusruum(new Vastane(RandElem(nimed),Juhuslik.randint(10,20),Juhuslik.randint(3,5)*raskus,(raskus-1)*2),"Vana Raamatukogu");
+        Võitlusruum võitlusruum3 = new Võitlusruum(new Vastane(RandElem(nimed),Juhuslik.randint(10,20),Juhuslik.randint(3,5)*raskus,(raskus-1)*2),"Labor");
+        Lõpuruum lõpuruum = new Lõpuruum(new Vastane("Maailma Hävitaja Võlur",100,10,5),"Viimane Tuba");
         koobas.add(aarderuum);
         koobas.add(võitlusruum1);
         koobas.add(võitlusruum2);
@@ -139,6 +138,11 @@ public class Peaklass {
                 System.out.println("Liikusid ruumi: "+koobas.get(ruumiNumber));
                 Vastane vastane = koobas.get(ruumiNumber).getVastane();
                 if(vastane != null) {
+                    if (ruumiNumber != koobas.size()-1) {
+                        vastane.setElud(vastane.getElud() * raskus);
+                        vastane.setTugevus(vastane.getTugevus() * raskus);
+                        vastane.setKaitse((raskus - 1));
+                    }
                     System.out.println("Kohtasid vastast: " + vastane.getNimi() + " Elud=" + vastane.getElud());
                     while (vastane.isElus() && m1.isElus()){
                         System.out.println("Ründa: 1");
@@ -159,7 +163,7 @@ public class Peaklass {
                         m1.taastaMana(1);
                         System.out.println("Said natuke elusid ja mana tagasi");
                         System.out.println("Elusid järgi:" + m1.getElud());
-                        raskus += 2;
+                        raskus++;
                     }
                     if (!m1.isElus()) {
                         System.out.println("Said surma, mäng läbi!");
@@ -188,17 +192,25 @@ public class Peaklass {
 
 
             }
-            if (tegevus == 2) {
+            else if (tegevus == 2) {
                 System.out.println("Vaatad kaarti ja näed tube:");
                 System.out.println(koobas);
             }
-            if (tegevus == 3) {
+            else if (tegevus == 3) {
                 System.out.println("Vaatad oma varustust:");
-                System.out.println("Elud="+m1.getElud()+" Tugevus="+m1.getTugevus()+" Mana="+m1.getMana()+" mis taastub "+m1.getManaTaastumine()+" võrra");
-                if (m1.getKaitserüü() == null) System.out.println("Sul on | " + m1.getRelv() + " ja " + "kaitserüü puudub");
-                else if (m1.getRelv() == null) System.out.println("Sul on | " + "relv puudub" + " ja " + m1.getKaitserüü());
-                else if (m1.getKaitserüü() == null && m1.getRelv() == null) System.out.println("Sul on | " + "relv puudub" + " ja " + "kaitserüü puudub");
-                else System.out.println("Sul on | " + m1.getRelv() + " ja " + m1.getKaitserüü());
+                if (m1.getRelv() != null) System.out.println("Elud="+m1.getElud()+" Tugevus="+(m1.getTugevus()+m1.getRelv().getRünnak())+" Mana="+m1.getMana()+" mis taastub "+m1.getManaTaastumine()+" võrra");
+                else System.out.println("Elud="+m1.getElud()+" Tugevus="+m1.getTugevus()+" Mana="+m1.getMana()+" mis taastub "+m1.getManaTaastumine()+" võrra");
+                if (m1.getKaitserüü() == null) System.out.println("Varustus | " + m1.getRelv() + " ja " + "kaitserüü puudub");
+                else if (m1.getRelv() == null) System.out.println("Varustus | " + "relv puudub" + " ja " + m1.getKaitserüü());
+                else if (m1.getKaitserüü() == null && m1.getRelv() == null) System.out.println("Varustus | " + "relv puudub" + " ja " + "kaitserüü puudub");
+                else System.out.println("Varustus | " + m1.getRelv() + " ja " + m1.getKaitserüü());
+            }
+            else {
+                System.out.println("MA ÜTLESIN, ET ÜHEST KOLMENI!!!");
+            }
+            if (ruumiNumber == koobas.size()-1) {
+                System.out.println("Enne viimast tuba puhkad ja saad kõik elud tagasi");
+                m1.setElud(40);
             }
         }
     }

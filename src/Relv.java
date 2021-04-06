@@ -17,6 +17,6 @@ public class Relv extends Varustus{
 
     @Override
     public String toString() {
-        return "[Relv: " + nimi + " ATK " + rünnak + "]";
+        return "[Relv: " + nimi + " ründetugevus " + rünnak + "]";
     }
 }

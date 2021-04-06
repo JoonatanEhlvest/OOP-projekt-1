@@ -58,4 +58,8 @@ public abstract class Olend {
     public int getEludeTaastumine() {
         return eludeTaastumine;
     }
+
+    public void setTugevus(int tugevus) {
+        this.tugevus = tugevus;
+    }
 }

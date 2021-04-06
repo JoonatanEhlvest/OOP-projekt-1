@@ -34,4 +34,12 @@ public class Vastane extends Olend {
             mängija.vahetaRelva((Relv) asi);
         }
     }
+
+    public int getKaitse() {
+        return kaitse;
+    }
+
+    public void setKaitse(int kaitse) {
+        this.kaitse = kaitse;
+    }
 }
