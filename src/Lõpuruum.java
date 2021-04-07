@@ -11,6 +11,10 @@ public class Lõpuruum extends Koobas{
         return vastane;
     }
 
+    public boolean bossElus() {
+        return vastane.isElus();
+    }
+
     @Override
     public String toString() {
         return "Boss";

@@ -1,6 +1,3 @@
-import java.util.List;
-import java.util.Random;
-
 public class Aarderuum extends Koobas{
     private Varustus asi;
     private String nimi;
@@ -10,7 +7,7 @@ public class Aarderuum extends Koobas{
         this.nimi = nimi;
     }
 
-    // Varustus siin meetod
+    // Lisab varustuse aarderuumi
     public void lisaVarustus(Varustus asi) {
         this.asi = asi;
         varustusVõetud(asi);

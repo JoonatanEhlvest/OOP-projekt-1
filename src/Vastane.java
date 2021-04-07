@@ -26,6 +26,7 @@ public class Vastane extends Olend {
         super.sureb();
         int suvaline = Juhuslik.randint(0, võimalikudAsjad.getSize() - 1);
         Varustus asi = võimalikudAsjad.getKõikAsjad().get(suvaline);
+        asi.varustusVõetud(asi);
         System.out.println("Vastasel oli " + asi);
         if (asi instanceof Kaitserüü) {
             mängija.vahetaRüüd((Kaitserüü) asi);
