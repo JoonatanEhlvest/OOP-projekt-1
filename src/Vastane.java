@@ -22,6 +22,11 @@ public class Vastane extends Olend {
         super.sureb();
     }
 
+    /**
+     * Vastane sureb ja annab mängijale suvalise Varustuse listist võimalikudAsjad
+     * @param võimalikudAsjad (Varustus)
+     * @param mängija (Mängija)
+     */
     public void sureb(Varustus võimalikudAsjad, Mängija mängija) {
         super.sureb();
         int suvaline = Juhuslik.randint(0, võimalikudAsjad.getSize() - 1);

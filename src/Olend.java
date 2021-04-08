@@ -18,6 +18,11 @@ public abstract class Olend {
         this.elus = false;
     }
 
+    /**
+     * Vähendab Olendi elusid rünnakuTugevuse võrra
+     * @param rünnakuTugevus kui palju kahju Olend võtab (int)
+     * @param ignoreeribKaitset true, kui rünnak ignoreerib Olendi kaitset (boolean)
+     */
     public void võtabKahju(int rünnakuTugevus, boolean ignoreeribKaitset) {
         rünnakuTugevus = Math.max(rünnakuTugevus, 0);
         elud -= rünnakuTugevus;
@@ -26,6 +31,10 @@ public abstract class Olend {
         }
     }
 
+    /**
+     * Teeb vastasele kahju vahemikus 1 kuni Olendi tugevuseni, ei ignoreeri kaitset
+     * @param vastane Olend, kellele kahju tehakse
+     */
     public void ründa(Olend vastane) {
         int rünnakuTugevus = Juhuslik.randint(1, tugevus);
         vastane.võtabKahju(rünnakuTugevus, false);

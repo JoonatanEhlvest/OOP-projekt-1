@@ -9,6 +9,10 @@ public class Lõks {
         this.ignoreeribKaitset = ignoreeribKaitset;
     }
 
+    /**
+     * Teeb tõenäosusega aktiveerimisTõenäosus ohvrile kahju.
+     * @param ohver (Olend)
+     */
     public void aktiveerumine(Olend ohver) {
         int õnn = Juhuslik.randint(1, 100);
         if (õnn <= aktiveerumisTõenäosus) {
