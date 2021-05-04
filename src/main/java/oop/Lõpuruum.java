@@ -1,3 +1,5 @@
+package oop;
+
 public class Lõpuruum extends Koobas{
     private Vastane vastane;
     private String nimi;

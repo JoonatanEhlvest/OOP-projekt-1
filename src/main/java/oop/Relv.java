@@ -1,3 +1,5 @@
+package oop;
+
 public class Relv extends Varustus{
     int rünnak;
     String nimi;

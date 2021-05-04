@@ -1,3 +1,5 @@
+package oop;
+
 public class Aarderuum extends Koobas{
     private Varustus asi;
     private String nimi;

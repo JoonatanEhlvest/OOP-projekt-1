@@ -1,3 +1,5 @@
+package oop;
+
 public abstract class Olend {
     private int maxElud;
     private int elud;

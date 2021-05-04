@@ -1,3 +1,5 @@
+package oop;
+
 public class Võitlusruum extends Koobas{
     private Vastane vastane;
     private String nimi;

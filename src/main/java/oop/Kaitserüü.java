@@ -1,3 +1,5 @@
+package oop;
+
 public class Kaitserüü extends Varustus{
     private int kaitse;
     private String nimi;

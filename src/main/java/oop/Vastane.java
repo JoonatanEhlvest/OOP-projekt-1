@@ -1,3 +1,5 @@
+package oop;
+
 public class Vastane extends Olend {
     private int kaitse;
 

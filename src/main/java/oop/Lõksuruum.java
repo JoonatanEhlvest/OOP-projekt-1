@@ -1,3 +1,5 @@
+package oop;
+
 public class Lõksuruum extends Koobas{
     private Lõks lõks;
 

@@ -1,3 +1,5 @@
+package oop;
+
 public class Lõks {
     private int kahju;
     private double aktiveerumisTõenäosus;
