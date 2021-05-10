@@ -5,6 +5,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -20,6 +21,7 @@ public class Peaklassfx extends Application {
 
     @Override
     public void start(Stage pealava) {
+        Group root = new Group();
         pealava.setTitle("Basic Dungeon");
 
         Image taust = pilt("images/Taust.jpg");
@@ -28,10 +30,14 @@ public class Peaklassfx extends Application {
         imageView.setFitWidth(1280);
         imageView.setFitHeight(720);
 
-        Group root = new Group(imageView);
+        BorderPane bp = new BorderPane();
+        bp.getChildren().add(imageView);
+
+        root.getChildren().add(bp);
         Scene scene = new Scene(root, 1280, 720);
-        pealava.minWidthProperty().bind(scene.heightProperty().multiply(1.77777));
-        pealava.minHeightProperty().bind(scene.widthProperty().divide(1.77777));
+
+        pealava.minWidthProperty().bind(scene.heightProperty().multiply(1.77777777));
+        pealava.minHeightProperty().bind(scene.widthProperty().divide(1.77777777));
         pealava.setScene(scene);
         pealava.show();
     }
