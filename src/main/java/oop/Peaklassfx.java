@@ -10,7 +10,9 @@ public class Peaklassfx extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage pealava) {
+        pealava.setTitle("Basic Dungeon");
 
+        pealava.show();
     }
 }
