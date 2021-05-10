@@ -29,12 +29,13 @@ public class Peaklassfx extends Application {
         Image taust = pilt("images/Taust.jpg");
         ImageView imageView = new ImageView();
         imageView.setImage(taust);
-        imageView.setFitHeight(370);
-        imageView.setFitWidth(595);
+        imageView.setFitWidth(1280);
+        imageView.setFitHeight(720);
 
         Group root = new Group(imageView);
-        Scene scene = new Scene(root, 595, 370);
-
+        Scene scene = new Scene(root, 1280, 720);
+        pealava.minWidthProperty().bind(scene.heightProperty().multiply(1.77777));
+        pealava.minHeightProperty().bind(scene.widthProperty().divide(1.77777));
         pealava.setScene(scene);
         pealava.show();
     }
