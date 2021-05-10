@@ -29,6 +29,8 @@ public class Peaklassfx extends Application {
         Image taust = pilt("images/Taust.jpg");
         ImageView imageView = new ImageView();
         imageView.setImage(taust);
+        imageView.setFitHeight(370);
+        imageView.setFitWidth(595);
 
         Group root = new Group(imageView);
         Scene scene = new Scene(root, 595, 370);
