@@ -42,7 +42,7 @@ public class Peaklassfx extends Application {
         GridPane gridValikud = new GridPane();
         gridValikud.setPadding(new Insets(15, 15, 15, 15));
         gridValikud.setVgap(10);
-        gridValikud.setHgap(10);
+        gridValikud.setHgap(100);
 
         // Nupp 1
         Button valik1 = new Button("Liigu edasi");
@@ -85,15 +85,20 @@ public class Peaklassfx extends Application {
          */
         pealava.widthProperty().addListener((observable, oldValue, newValue) -> {
             taustapilt.setFitWidth((double) newValue);
-            double nuppuSuurus = (double) newValue*0.03;
-            nuppSuurus(valik1,nuppuSuurus);
-            nuppSuurus(valik2,nuppuSuurus);
-            nuppSuurus(valik3,nuppuSuurus);
-            nuppSuurus(valik4,nuppuSuurus);
+            double nuppuSuurus = (double) newValue*0.15;
+            nuppSuurusW(valik1,nuppuSuurus);
+            nuppSuurusW(valik2,nuppuSuurus);
+            nuppSuurusW(valik3,nuppuSuurus);
+            nuppSuurusW(valik4,nuppuSuurus);
         });
 
         pealava.heightProperty().addListener((observable, oldValue, newValue) -> {
             taustapilt.setFitHeight((double) newValue);
+            double nuppuSuurus = (double) newValue*0.05;
+            nuppSuurusH(valik1,nuppuSuurus);
+            nuppSuurusH(valik2,nuppuSuurus);
+            nuppSuurusH(valik3,nuppuSuurus);
+            nuppSuurusH(valik4,nuppuSuurus);
         });
 
 
@@ -112,8 +117,11 @@ public class Peaklassfx extends Application {
         return null;
     }
 
-    public static void nuppSuurus(Button nupp, double uusSuurus) {
+    public static void nuppSuurusH(Button nupp, double uusSuurus) {
         nupp.setPrefHeight(uusSuurus);
-        nupp.setPrefHeight(uusSuurus);
+    }
+
+    public static void nuppSuurusW(Button nupp, double uusSuurus) {
+        nupp.setPrefWidth(uusSuurus);
     }
 }
