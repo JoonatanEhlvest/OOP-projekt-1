@@ -20,21 +20,21 @@ public class Peaklassfx extends Application {
 
     @Override
     public void start(Stage pealava) {
-        Group root = new Group();
         pealava.setTitle("Basic Dungeon");
 
         Image taust = pilt("images/Taust.jpg");
-        ImageView imageView = new ImageView();
-        imageView.setImage(taust);
-        imageView.setFitWidth(1280);
-        imageView.setFitHeight(720);
+        ImageView taustapilt = new ImageView();
+        taustapilt.setImage(taust);
+        taustapilt.setFitWidth(1280);
+        taustapilt.setFitHeight(720);
 
+
+        //TODO erinevad stseenid: menüü, liikumine, võitlus
 
         BorderPane bp = new BorderPane();
-        bp.getChildren().add(imageView);
+        bp.getChildren().add(taustapilt);
 
-        root.getChildren().add(bp);
-        Scene scene = new Scene(root, 1280, 720);
+        Scene scene = new Scene(bp, 1280, 720);
 
         double suhe = 16/9.0;
         pealava.minWidthProperty().bind(scene.heightProperty().multiply(suhe));
@@ -46,9 +46,9 @@ public class Peaklassfx extends Application {
          * Aga siia lisada veel peategelane, vastane ja siis nupud jne.
          * Ja pärast tsüklis saame omistada uusi asju nendele imageView-dele ja vastase isendile
          */
-        pealava.widthProperty().addListener((observable, oldValue, newValue) -> imageView.setFitWidth((double) newValue));
+        pealava.widthProperty().addListener((observable, oldValue, newValue) -> taustapilt.setFitWidth((double) newValue));
 
-        pealava.heightProperty().addListener((observable, oldValue, newValue) -> imageView.setFitHeight((double) newValue));
+        pealava.heightProperty().addListener((observable, oldValue, newValue) -> taustapilt.setFitHeight((double) newValue));
 
 
         pealava.setScene(scene);
