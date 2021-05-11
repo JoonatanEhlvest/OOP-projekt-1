@@ -26,8 +26,6 @@ public class Peaklassfx extends Application {
     public void start(Stage pealava) {
         pealava.setTitle("Basic Dungeon");
 
-
-
         Image taust = pilt("images/Taust.jpg");
         ImageView taustapilt = new ImageView();
         taustapilt.setImage(taust);
@@ -102,7 +100,6 @@ public class Peaklassfx extends Application {
         valik1.setOnAction(actionEvent ->  {
             //... do something in here.
         });
-        
 
         pealava.setScene(scene);
         pealava.show();
