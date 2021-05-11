@@ -26,6 +26,8 @@ public class Peaklassfx extends Application {
     public void start(Stage pealava) {
         pealava.setTitle("Basic Dungeon");
 
+
+
         Image taust = pilt("images/Taust.jpg");
         ImageView taustapilt = new ImageView();
         taustapilt.setImage(taust);
@@ -47,23 +49,19 @@ public class Peaklassfx extends Application {
         // Nupp 1
         Button valik1 = new Button("Liigu edasi");
         GridPane.setConstraints(valik1, 0, 0);
-        valik1.setPrefWidth(200);
-        valik1.setPrefHeight(50);
+
         // Nupp 2
         Button valik2 = new Button("Vaata kaarti");
         GridPane.setConstraints(valik2, 0, 1);
-        valik2.setPrefWidth(200);
-        valik2.setPrefHeight(50);
+
         // Nupp 3
         Button valik3 = new Button("Vaata varustust");
         GridPane.setConstraints(valik3, 1, 0);
-        valik3.setPrefWidth(200);
-        valik3.setPrefHeight(50);
+
         // Nupp 4
         Button valik4 = new Button("Salvesta ja välju");
         GridPane.setConstraints(valik4, 1, 1);
-        valik4.setPrefWidth(200);
-        valik4.setPrefHeight(50);
+
 
 
         gridValikud.getChildren().addAll(valik1, valik2, valik3, valik4);
@@ -101,6 +99,10 @@ public class Peaklassfx extends Application {
             nuppSuurusH(valik4,nuppuSuurus);
         });
 
+        valik1.setOnAction(actionEvent ->  {
+            //... do something in here.
+        });
+        
 
         pealava.setScene(scene);
         pealava.show();
