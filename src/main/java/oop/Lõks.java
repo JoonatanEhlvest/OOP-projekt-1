@@ -1,6 +1,8 @@
 package oop;
 
-public class Lõks {
+import java.io.Serializable;
+
+public class Lõks implements Serializable {
     private int kahju;
     private double aktiveerumisTõenäosus;
     private boolean ignoreeribKaitset;

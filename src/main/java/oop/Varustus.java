@@ -1,9 +1,10 @@
 package oop;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Varustus {
+public class Varustus implements Serializable {
     private List<Varustus> kõikAsjad = new ArrayList<>();
 
     public void lisaAsi(Varustus varustus){
@@ -20,5 +21,12 @@ public class Varustus {
 
     public int getSize() {
         return kõikAsjad.size();
+    }
+
+    @Override
+    public String toString() {
+        return "Varustus{" +
+                "kõikAsjad=" + kõikAsjad +
+                '}';
     }
 }

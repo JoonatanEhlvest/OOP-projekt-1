@@ -235,8 +235,6 @@ public class Peaklassfx extends Application {
         pealava.setMinWidth(1293);
 
 
-
-
         /**
          * NEED KAKS KUULARIT MUUDAVAD NENDE ASJADE SUURUST, MIS SIIN KIRJELDATUD ON, hetkel ainult tausta
          * Aga siia lisada veel peategelane, vastane ja siis nupud jne.
