@@ -1,6 +1,8 @@
 package oop;
 
-public abstract class Olend {
+import java.io.Serializable;
+
+public abstract class Olend implements Serializable {
     private int maxElud;
     private int elud;
     private int eludeTaastumine; // Elude taastumiskiirus

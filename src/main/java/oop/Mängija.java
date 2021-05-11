@@ -1,9 +1,11 @@
 package oop;
 
+import java.io.Serializable;
 import java.util.Locale;
 import java.util.Scanner;
 
 public class Mängija extends Olend{
+
     private int maxMana;
     private int mana;
     private int manaTaastumine;
@@ -179,5 +181,16 @@ public class Mängija extends Olend{
 
     public int getManaTaastumine() {
         return manaTaastumine;
+    }
+
+    @Override
+    public String toString() {
+        return "Mängija{" +
+                "maxMana=" + maxMana +
+                ", mana=" + mana +
+                ", manaTaastumine=" + manaTaastumine +
+                ", kaitserüü=" + kaitserüü +
+                ", relv=" + relv +
+                '}';
     }
 }

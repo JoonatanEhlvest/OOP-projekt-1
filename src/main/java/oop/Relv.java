@@ -1,6 +1,8 @@
 package oop;
 
-public class Relv extends Varustus{
+import java.io.Serializable;
+
+public class Relv extends Varustus implements Serializable {
     int rünnak;
     String nimi;
 

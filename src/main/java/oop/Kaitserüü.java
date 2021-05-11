@@ -1,6 +1,8 @@
 package oop;
 
-public class Kaitserüü extends Varustus{
+import java.io.Serializable;
+
+public class Kaitserüü extends Varustus implements Serializable {
     private int kaitse;
     private String nimi;
 
