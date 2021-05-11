@@ -1,8 +1,6 @@
 package oop;
 
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -38,9 +36,9 @@ public class Peaklassfx extends Application {
         root.getChildren().add(bp);
         Scene scene = new Scene(root, 1280, 720);
 
-        double suhe = 16/9;
-        pealava.minWidthProperty().bind(scene.heightProperty().multiply(1.777));
-        pealava.minHeightProperty().bind(scene.widthProperty().divide(1.777));
+        double suhe = 16/9.0;
+        pealava.minWidthProperty().bind(scene.heightProperty().multiply(suhe));
+        pealava.minHeightProperty().bind(scene.widthProperty().divide(suhe));
 
 
         /**
@@ -48,20 +46,9 @@ public class Peaklassfx extends Application {
          * Aga siia lisada veel peategelane, vastane ja siis nupud jne.
          * Ja pärast tsüklis saame omistada uusi asju nendele imageView-dele ja vastase isendile
          */
-        pealava.widthProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                imageView.setFitWidth((double) newValue);
-            }
-        });
+        pealava.widthProperty().addListener((observable, oldValue, newValue) -> imageView.setFitWidth((double) newValue));
 
-        pealava.heightProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                imageView.setFitHeight((double) newValue);
-
-            }
-        });
+        pealava.heightProperty().addListener((observable, oldValue, newValue) -> imageView.setFitHeight((double) newValue));
 
 
         pealava.setScene(scene);
