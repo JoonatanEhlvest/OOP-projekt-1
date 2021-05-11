@@ -26,16 +26,39 @@ public class Peaklassfx extends Application {
     public void start(Stage pealava) {
         pealava.setTitle("Basic Dungeon");
 
+        Scene liikumisTseen = liikumisStseen(pealava);
 
 
+        pealava.setScene(liikumisTseen);
+        pealava.show();
+    }
+
+    public static Image pilt (String path) {
+        try {
+            InputStream is = new FileInputStream(path);
+            Image image = new Image(is);
+            return image;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static void nuppSuurusH(Button nupp, double uusSuurus) {
+        nupp.setPrefHeight(uusSuurus);
+    }
+
+    public static void nuppSuurusW(Button nupp, double uusSuurus) {
+        nupp.setPrefWidth(uusSuurus);
+    }
+
+    public static Scene liikumisStseen(Stage pealava) {
         Image taust = pilt("images/Taust.jpg");
         ImageView taustapilt = new ImageView();
         taustapilt.setImage(taust);
         taustapilt.setFitWidth(1280);
         taustapilt.setFitHeight(720);
 
-
-        //TODO erinevad stseenid: menüü, liikumine, võitlus, managa ründmine? (võib ka nt pop up window olla)
 
         BorderPane bp = new BorderPane();
         bp.getChildren().add(taustapilt);
@@ -61,7 +84,6 @@ public class Peaklassfx extends Application {
         // Nupp 4
         Button valik4 = new Button("Salvesta ja välju");
         GridPane.setConstraints(valik4, 1, 1);
-
 
 
         gridValikud.getChildren().addAll(valik1, valik2, valik3, valik4);
@@ -102,28 +124,7 @@ public class Peaklassfx extends Application {
         valik1.setOnAction(actionEvent ->  {
             //... do something in here.
         });
-        
 
-        pealava.setScene(scene);
-        pealava.show();
-    }
-
-    public static Image pilt (String path) {
-        try {
-            InputStream is = new FileInputStream(path);
-            Image image = new Image(is);
-            return image;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public static void nuppSuurusH(Button nupp, double uusSuurus) {
-        nupp.setPrefHeight(uusSuurus);
-    }
-
-    public static void nuppSuurusW(Button nupp, double uusSuurus) {
-        nupp.setPrefWidth(uusSuurus);
+        return scene;
     }
 }
