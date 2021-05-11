@@ -47,6 +47,8 @@ public class Peaklassfx extends Application {
         // Nupp 1
         Button valik1 = new Button("Liigu edasi");
         GridPane.setConstraints(valik1, 0, 0);
+        valik1.setPrefWidth(200);
+        valik1.setPrefHeight(50);
         // Nupp 2
         Button valik2 = new Button("Vaata kaarti");
         GridPane.setConstraints(valik2, 0, 1);
