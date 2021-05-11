@@ -83,9 +83,18 @@ public class Peaklassfx extends Application {
          * Aga siia lisada veel peategelane, vastane ja siis nupud jne.
          * Ja pärast tsüklis saame omistada uusi asju nendele imageView-dele ja vastase isendile
          */
-        pealava.widthProperty().addListener((observable, oldValue, newValue) -> taustapilt.setFitWidth((double) newValue));
+        pealava.widthProperty().addListener((observable, oldValue, newValue) -> {
+            taustapilt.setFitWidth((double) newValue);
+            double nuppuSuurus = (double) newValue*0.03;
+            nuppSuurus(valik1,nuppuSuurus);
+            nuppSuurus(valik2,nuppuSuurus);
+            nuppSuurus(valik3,nuppuSuurus);
+            nuppSuurus(valik4,nuppuSuurus);
+        });
 
-        pealava.heightProperty().addListener((observable, oldValue, newValue) -> taustapilt.setFitHeight((double) newValue));
+        pealava.heightProperty().addListener((observable, oldValue, newValue) -> {
+            taustapilt.setFitHeight((double) newValue);
+        });
 
 
         pealava.setScene(scene);
@@ -101,5 +110,10 @@ public class Peaklassfx extends Application {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static void nuppSuurus(Button nupp, double uusSuurus) {
+        nupp.setPrefHeight(uusSuurus);
+        nupp.setPrefHeight(uusSuurus);
     }
 }
