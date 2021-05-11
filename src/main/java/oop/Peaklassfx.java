@@ -26,14 +26,37 @@ public class Peaklassfx extends Application {
     public void start(Stage pealava) {
         pealava.setTitle("Basic Dungeon");
 
+        Scene liikumisStseen = liikumisStseen(pealava);
+
+        pealava.setScene(liikumisStseen);
+        pealava.show();
+    }
+
+    public static Image pilt (String path) {
+        try {
+            InputStream is = new FileInputStream(path);
+            Image image = new Image(is);
+            return image;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static void nuppSuurusH(Button nupp, double uusSuurus) {
+        nupp.setPrefHeight(uusSuurus);
+    }
+
+    public static void nuppSuurusW(Button nupp, double uusSuurus) {
+        nupp.setPrefWidth(uusSuurus);
+    }
+
+    public static Scene liikumisStseen(Stage pealava) {
         Image taust = pilt("images/Taust.jpg");
         ImageView taustapilt = new ImageView();
         taustapilt.setImage(taust);
         taustapilt.setFitWidth(1280);
         taustapilt.setFitHeight(720);
-
-
-        //TODO erinevad stseenid: menüü, liikumine, võitlus, managa ründmine? (võib ka nt pop up window olla)
 
         BorderPane bp = new BorderPane();
         bp.getChildren().add(taustapilt);
@@ -61,18 +84,15 @@ public class Peaklassfx extends Application {
         GridPane.setConstraints(valik4, 1, 1);
 
 
-
         gridValikud.getChildren().addAll(valik1, valik2, valik3, valik4);
         gridValikud.setAlignment(Pos.CENTER);
         bp.setBottom(gridValikud);
-
 
         Scene scene = new Scene(bp, 1280, 720);
 
         double suhe = 16/9.0;
         pealava.minWidthProperty().bind(scene.heightProperty().multiply(suhe));
         pealava.minHeightProperty().bind(scene.widthProperty().divide(suhe));
-
 
         /**
          * NEED KAKS KUULARIT MUUDAVAD NENDE ASJADE SUURUST, MIS SIIN KIRJELDATUD ON, hetkel ainult tausta
@@ -100,27 +120,6 @@ public class Peaklassfx extends Application {
         valik1.setOnAction(actionEvent ->  {
             //... do something in here.
         });
-
-        pealava.setScene(scene);
-        pealava.show();
-    }
-
-    public static Image pilt (String path) {
-        try {
-            InputStream is = new FileInputStream(path);
-            Image image = new Image(is);
-            return image;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public static void nuppSuurusH(Button nupp, double uusSuurus) {
-        nupp.setPrefHeight(uusSuurus);
-    }
-
-    public static void nuppSuurusW(Button nupp, double uusSuurus) {
-        nupp.setPrefWidth(uusSuurus);
+        return scene;
     }
 }
