@@ -50,7 +50,7 @@ public class Peaklassfx extends Application {
         // Nupp 2
         Button valik2 = new Button("Vaata kaarti");
         GridPane.setConstraints(valik2, 0, 1);
-        // Nupp 3  
+        // Nupp 3
         Button valik3 = new Button("Vaata varustust");
         GridPane.setConstraints(valik3, 1, 0);
         // Nupp 4
