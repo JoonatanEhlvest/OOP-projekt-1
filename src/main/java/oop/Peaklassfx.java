@@ -50,6 +50,68 @@ public class Peaklassfx extends Application {
         nupp.setPrefWidth(uusSuurus);
     }
 
+    public static Scene võitlusStseen(Stage pealava, Võitlusruum ruum, Vastane vastane) {
+        String pilt = "images/"+ruum.getNimi()+".jpg";
+        Image taust = pilt(pilt);
+        ImageView taustapilt = new ImageView();
+        taustapilt.setImage(taust);
+        taustapilt.setFitWidth(1280);
+        taustapilt.setFitHeight(720);
+
+        BorderPane bp = new BorderPane();
+        bp.getChildren().add(taustapilt);
+
+        // Nupud:
+        GridPane gridValikud = new GridPane();
+        gridValikud.setPadding(new Insets(15, 15, 15, 15));
+        gridValikud.setVgap(10);
+        gridValikud.setHgap(100);
+
+        // Nupp 1
+        Button valik1 = new Button("Ründa");
+        GridPane.setConstraints(valik1, 0, 0);
+
+        // Nupp 2
+        Button valik2 = new Button("Põgene (Võtad kahju!)");
+        GridPane.setConstraints(valik2, 1, 0);
+
+        // Nupp 3
+        Button valik3 = new Button("Ründa maagiaga");
+        GridPane.setConstraints(valik3, 2, 0);
+
+        gridValikud.getChildren().addAll(valik1, valik2, valik3);
+        gridValikud.setAlignment(Pos.CENTER);
+        bp.setTop(gridValikud);
+
+        Scene scene = new Scene(bp, 1280, 720);
+
+        double suhe = 16/9.0;
+        pealava.minWidthProperty().bind(scene.heightProperty().multiply(suhe));
+        pealava.minHeightProperty().bind(scene.widthProperty().divide(suhe));
+
+        pealava.widthProperty().addListener((observable, oldValue, newValue) -> {
+            taustapilt.setFitWidth((double) newValue);
+            double nuppuSuurus = (double) newValue*0.15;
+            nuppSuurusW(valik1,nuppuSuurus);
+            nuppSuurusW(valik2,nuppuSuurus);
+            nuppSuurusW(valik3,nuppuSuurus);
+        });
+
+        pealava.heightProperty().addListener((observable, oldValue, newValue) -> {
+            taustapilt.setFitHeight((double) newValue);
+            double nuppuSuurus = (double) newValue*0.05;
+            nuppSuurusH(valik1,nuppuSuurus);
+            nuppSuurusH(valik2,nuppuSuurus);
+            nuppSuurusH(valik3,nuppuSuurus);
+        });
+
+        valik1.setOnAction(actionEvent ->  {
+            //... do something in here.
+        });
+        return scene;
+
+    }
+
     public static Scene liikumisStseen(Stage pealava) {
         Image taust = pilt("images/Taust.jpg");
         ImageView taustapilt = new ImageView();

@@ -13,7 +13,9 @@ public class Võitlusruum extends Koobas{
         return vastane;
     }
 
-
+    public String getNimi() {
+        return nimi;
+    }
 
     @Override
     public String toString() {
