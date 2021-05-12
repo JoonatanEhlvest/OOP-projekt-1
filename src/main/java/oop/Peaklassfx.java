@@ -13,7 +13,8 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
+import javafx.scene.text.TextFlow;
+import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -78,7 +79,7 @@ public class Peaklassfx extends Application {
         /** MÄNG ALGAB SIIT */
         pealava.setTitle("Basic Dungeon");
         int ruuminumber = 0;
-        Scene liikumisStseen = liikumisStseen(pealava, koobas,ruuminumber, m1);
+        Scene liikumisStseen = liikumisStseen(pealava, koobas, ruuminumber, m1, varustuseList);
         pealava.setScene(liikumisStseen);
 
         pealava.show();
@@ -133,7 +134,7 @@ public class Peaklassfx extends Application {
         }
     }
 
-    public static Scene võitlusStseen(Stage pealava, List<Koobas> ruumid, int ruuminumber, Mängija m1) {
+    public static Scene võitlusStseen(Stage pealava, List<Koobas> ruumid, int ruuminumber, Mängija m1, Varustus varustuseList) {
         Võitlusruum vr = (Võitlusruum) ruumid.get(ruuminumber-1);
         Vastane vastane = vr.getVastane();
 
@@ -146,6 +147,21 @@ public class Peaklassfx extends Application {
 
         BorderPane bp = new BorderPane();
         bp.getChildren().add(taustapilt);
+
+        Scene scene = new Scene(bp, laiusResolutsioon, kõrgusResolutsioon);
+
+
+        Image mängija = pilt("images/Player.png");
+        ImageView mängijapilt = new ImageView();
+        mängijapilt.setImage(mängija);
+        mängijapilt.setY(scene.getHeight()*0.56);
+        mängijapilt.setX(scene.getWidth()*0.15);
+        mängijapilt.setFitWidth(128+scene.getWidth()*0.1);
+        mängijapilt.setFitHeight(128+scene.getWidth()*0.1);
+        mängijapilt.setRotationAxis(Rotate.Y_AXIS);
+        mängijapilt.setRotate(180);
+
+        bp.getChildren().add(mängijapilt);
 
         // Nupud:
         GridPane gridValikud = new GridPane();
@@ -181,14 +197,13 @@ public class Peaklassfx extends Application {
         Text hoiatus = new Text("Saad ohutult edasi liikuda kui vastane on surnud!");
         hoiatus.setFill(Color.WHITE);
         hoiatus.setFont(Font.font(30));
-        bp.setBottom(hoiatus);
+        bp.setCenter(hoiatus);
+        BorderPane.setMargin(hoiatus,new Insets(scene.getHeight()*0.8,10,10,10));
         PauseTransition pause = new PauseTransition(Duration.seconds(4));
         pause.setOnFinished(e -> {
             bp.setBottom(null);
         });
         pause.play();
-
-        Scene scene = new Scene(bp, laiusResolutsioon, kõrgusResolutsioon);
 
         pealava.setMinHeight(757);
         pealava.setMinWidth(1293);
@@ -210,33 +225,76 @@ public class Peaklassfx extends Application {
         });
 
         ründa.setOnAction(actionEvent -> {
+            int eludenne = m1.getElud();
             Võitlus(m1,vastane);
+            int vahe = eludenne - m1.getElud();
+
+            Text tekst = new Text("Ründad vastast!");
+            tekst.setFill(Color.WHITE);
+            tekst.setFont(Font.font(30));
+            bp.setCenter(tekst);
+
+            Text mElud = new Text("-" + vahe);
+            mElud.setFill(Color.RED);
+            mElud.setFont(Font.font(40));
+
+
+            Text mMana = new Text("+3");
+            mMana.setFill(Color.BLUE);
+            mMana.setFont(Font.font(40));
+
+
+            TextFlow mTekst = new TextFlow(mElud,new Text(System.lineSeparator()),mMana);
+
+            bp.setLeft(mTekst);
+
+            BorderPane.setMargin(tekst,new Insets(10,10,scene.getHeight()*0.6,10));
+            BorderPane.setMargin(mTekst,new Insets(scene.getHeight()*0.5,0,10,scene.getWidth()*0.1));
+            PauseTransition pause1 = new PauseTransition(Duration.seconds(1.5));
+            pause1.setOnFinished(e -> {
+                tekst.setText(null);
+                mElud.setText(null);
+                mMana.setText(null);
+            });
+
+            pause1.play();
             m1.taastaMana(3);
         });
         põgene.setOnAction(actionEvent -> {
             if (vr.getVastane().isElus()) {
                 Text tekst = new Text("Põgened ruumist ja võtad kahju!");
-                GridPane.setConstraints(tekst, 0, 1);
                 tekst.setFill(Color.WHITE);
                 tekst.setFont(Font.font(30));
-                gridValikud.getChildren().add(tekst);
-                PauseTransition pause1 = new PauseTransition(Duration.seconds(4));
+                bp.setCenter(tekst);
+                BorderPane.setMargin(tekst,new Insets(10,10,scene.getHeight()*0.6,10));
+
+                int eludenne = m1.getElud();
+                vastane.ründa(m1);
+                int vahe = eludenne - m1.getElud();
+
+                Text mElud = new Text("-" + vahe);
+                mElud.setFill(Color.RED);
+                mElud.setFont(Font.font(40));
+
+                bp.setLeft(mElud);
+                BorderPane.setMargin(mElud,new Insets(scene.getHeight()*0.5,0,10,scene.getWidth()*0.1));
+
+                PauseTransition pause1 = new PauseTransition(Duration.seconds(3));
                 pause1.setOnFinished(e -> {
                     tekst.setText(null);
-                    vastane.ründa(m1);
-
+                    mElud.setText(null);
                 });
                 pause1.play();
             }
             else {
                 Text tekst = new Text("Liigud järgmisesse ruumi!");
-                GridPane.setConstraints(tekst, 0, 1);
                 tekst.setFill(Color.WHITE);
                 tekst.setFont(Font.font(30));
-                gridValikud.getChildren().add(tekst);
-                PauseTransition pause1 = new PauseTransition(Duration.seconds(4));
+                bp.setCenter(tekst);
+                BorderPane.setMargin(tekst,new Insets(10,10,scene.getHeight()*0.6,10));
+                PauseTransition pause1 = new PauseTransition(Duration.seconds(3));
                 pause1.setOnFinished(e -> {
-                    pealava.setScene(liikumisStseen(pealava,ruumid,ruuminumber,m1));
+                    pealava.setScene(liikumisStseen(pealava,ruumid,ruuminumber,m1,varustuseList));
                 });
                 pause1.play();
             }
@@ -250,24 +308,31 @@ public class Peaklassfx extends Application {
 
     }
 
-    public static Scene liikumisStseen(Stage pealava, List<Koobas> ruumid,int ruuminumber, Mängija m1) {
+    public static Scene liikumisStseen(Stage pealava, List<Koobas> ruumid,int ruuminumber, Mängija m1, Varustus varustuseList) {
+        List<String> taustad = new ArrayList<>();
+        taustad.add("Taust.jpg");
+        taustad.add("Puhkeruum.jpg");
         Image taust = pilt("images/Taust.jpg");
         ImageView taustapilt = new ImageView();
         taustapilt.setImage(taust);
         taustapilt.setFitWidth(laiusResolutsioon);
         taustapilt.setFitHeight(kõrgusResolutsioon);
 
+        BorderPane bp = new BorderPane();
+        bp.getChildren().add(taustapilt);
+
+        Scene scene = new Scene(bp, laiusResolutsioon, kõrgusResolutsioon);
+
         Image mängija = pilt("images/Player.png");
         ImageView mängijapilt = new ImageView();
         mängijapilt.setImage(mängija);
-        mängijapilt.setFitWidth(128);
-        mängijapilt.setFitHeight(128);
+        mängijapilt.setY(scene.getHeight()*0.5);
+        mängijapilt.setX(scene.getWidth()*0.6);
+        mängijapilt.setFitWidth(128+scene.getWidth()*0.05);
+        mängijapilt.setFitHeight(128+scene.getWidth()*0.05);
 
-        BorderPane bp = new BorderPane();
-        bp.getChildren().add(taustapilt);
         bp.getChildren().add(mängijapilt);
 
-        Scene scene = new Scene(bp, laiusResolutsioon, kõrgusResolutsioon);
 
         // Nupud:
         GridPane gridValikud = new GridPane();
@@ -330,7 +395,11 @@ public class Peaklassfx extends Application {
         });
 
         if (ruumid.get(ruuminumber) instanceof Võitlusruum) {
-            edasi.setOnAction(actionEvent -> pealava.setScene(võitlusStseen(pealava, ruumid, ruuminumber+1, m1)));
+
+            edasi.setOnAction(actionEvent -> {
+                pealava.setScene(võitlusStseen(pealava, ruumid, ruuminumber+1, m1, varustuseList));
+            });
+
         }
         else if (ruumid.get(ruuminumber) instanceof Aarderuum) { //TODO aarderuumi scene
             edasi.setOnAction(actionEvent -> {
