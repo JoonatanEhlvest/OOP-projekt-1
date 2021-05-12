@@ -2,6 +2,7 @@ package oop;
 
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -11,6 +12,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -485,12 +488,40 @@ public class Peaklassfx extends Application {
                 });
             }
         });
+        // Maagiaga ründamine
         maagia.setOnAction(actionEvent -> {
-            HBox hp = new HBox();
-            TextField sisestus = new TextField();
-            int rünnakuTugevus = 10; // TODO sisestamine selle tugevuse jaoks
-            m1.ründaMaagiaga(vastane, rünnakuTugevus);
-            mängijaMana.setText(String.valueOf(m1.getMana()));
+            TextField sisestusAla = new TextField();
+            sisestusAla.setPromptText("Sisesta, mitme managa tahad vastast rünnata (täisarv) ja vajuta enter");
+            bp.setBottom(sisestusAla);
+            PauseTransition pausPärastRünnakut = new PauseTransition(Duration.seconds(3));
+            pausPärastRünnakut.setOnFinished(e -> {
+                bp.setCenter(null);
+            });
+            sisestusAla.setOnKeyPressed(event -> {
+                if (event.getCode().equals(KeyCode.ENTER)) {
+                    int rünnakuTugevus;
+                    CharSequence sisestus = sisestusAla.getCharacters();
+                    try {
+                        rünnakuTugevus = Integer.parseInt(String.valueOf(sisestus));
+                        m1.ründaMaagiaga(vastane, rünnakuTugevus);
+                        mängijaMana.setText(String.valueOf(m1.getMana()));
+                        bp.setBottom(null);
+                        Text edukasTekst = new Text("Ründasid vastast maagiaga ja tegid " + rünnakuTugevus + " punkti haiget");
+                        edukasTekst.setFill(Color.WHITE);
+                        edukasTekst.setFont(Font.font(30));
+                        bp.setCenter(edukasTekst);
+                        pausPärastRünnakut.play();
+                    }
+                    catch (NumberFormatException e) {
+                        Text exceptionText = new Text("Sisestasid vigase numbri: " + sisestus + "\nPalun sisesta täisarv");
+                        exceptionText.setFill(Color.WHITE);
+                        exceptionText.setFont(Font.font(30));
+                        bp.setCenter(exceptionText);
+                        pausPärastRünnakut.play();
+                    }
+                }
+            });
+
         });
 
         return scene;
