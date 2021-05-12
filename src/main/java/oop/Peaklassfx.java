@@ -282,6 +282,7 @@ public class Peaklassfx extends Application {
                 int eludennev = vastane.getElud();
                 Võitlus(m1, vastane);
                 int vahe = eludenne - m1.getElud();
+                if (vahe <= 0) pealava.setScene(lõpuStseen(pealava,false));
                 int evahe = eludennev - vastane.getElud();
                 Text tekst = new Text("Ründad vastast!");
                 tekst.setFill(Color.WHITE);
@@ -337,7 +338,7 @@ public class Peaklassfx extends Application {
                 teadeVastaseSurm.setFill(Color.WHITE);
                 teadeVastaseSurm.setFont(Font.font(30));
                 bp.setCenter(teadeVastaseSurm);
-                pealava.setScene(lõpuStseen(pealava));
+                pealava.setScene(lõpuStseen(pealava,true));
             }
         });
 
@@ -376,7 +377,7 @@ public class Peaklassfx extends Application {
                                 teadeVastaseSurm.setFill(Color.WHITE);
                                 teadeVastaseSurm.setFont(Font.font(30));
                                 bp.getChildren().add(teadeVastaseSurm);
-                                pealava.setScene(lõpuStseen(pealava));
+                                pealava.setScene(lõpuStseen(pealava,true));
                             }
 
                         } catch (NumberFormatException e) {
@@ -708,6 +709,7 @@ public class Peaklassfx extends Application {
                 int eludennev = vastane.getElud();
                 Võitlus(m1, vastane);
                 int vahe = eludenne - m1.getElud();
+                if (vahe <= 0) pealava.setScene(lõpuStseen(pealava,false));
                 int evahe = eludennev - vastane.getElud();
                 Text tekst = new Text("Ründad vastast!");
                 tekst.setFill(Color.WHITE);
@@ -1199,7 +1201,7 @@ public class Peaklassfx extends Application {
         return algusStseen;
     }
 
-    public static Scene lõpuStseen(Stage pealava) {
+    public static Scene lõpuStseen(Stage pealava,boolean võit) {
         Image taust = pilt("images/Taust.jpg");
         ImageView taustapilt = new ImageView();
         taustapilt.setImage(taust);
@@ -1209,7 +1211,9 @@ public class Peaklassfx extends Application {
         BorderPane bp = new BorderPane();
         bp.getChildren().add(taustapilt);
 
-        Text õnnitlused = new Text("Olete mängu võitnud!");
+        Text õnnitlused = null;
+        if (võit) õnnitlused = new Text("Olete mängu võitnud!");
+        else õnnitlused = new Text("Said surma!");
         õnnitlused.setFill(Color.WHITE);
         õnnitlused.setFont(Font.font(30));
         Button valik1 = new Button("Välju mängust");
