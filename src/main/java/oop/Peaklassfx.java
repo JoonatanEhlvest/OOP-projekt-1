@@ -250,13 +250,11 @@ public class Peaklassfx extends Application {
             mängijapilt.setFitWidth(128 + scene.getWidth() * 0.1);
             eludjamana.setTranslateX(scene.getWidth() * 0.20);
             eludjamana.setTranslateY(scene.getWidth() * 0.28);
-            bp.getChildren().add(eludjamana);
 
             vastanePilt.setX(scene.getWidth() * 0.6);
             vastanePilt.setFitWidth(128 + scene.getWidth() * 0.1);
             elud.setTranslateX(scene.getWidth() * 0.67);
             elud.setTranslateY(scene.getWidth() * 0.28);
-            bp.getChildren().add(elud);
 
             laiusResolutsioon = (double) newValue;
         });
