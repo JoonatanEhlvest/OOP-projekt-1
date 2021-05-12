@@ -511,6 +511,18 @@ public class Peaklassfx extends Application {
         pealava.setMinHeight(757);
         pealava.setMinWidth(1293);
 
+        // Algväärtusta nuppude suurused
+        double nupuSuurusW = laiusResolutsioon*0.15;
+        double nupuSuurusH = kõrgusResolutsioon*0.05;
+        nuppSuurusW(edasi,nupuSuurusW);
+        nuppSuurusW(kaart,nupuSuurusW);
+        nuppSuurusW(varustus,nupuSuurusW);
+        nuppSuurusW(välju,nupuSuurusW);
+        nuppSuurusH(edasi,nupuSuurusH);
+        nuppSuurusH(kaart,nupuSuurusH);
+        nuppSuurusH(varustus,nupuSuurusH);
+        nuppSuurusH(välju,nupuSuurusH);
+
 
         /**
          * NEED KAKS KUULARIT MUUDAVAD NENDE ASJADE SUURUST, MIS SIIN KIRJELDATUD ON
@@ -621,33 +633,16 @@ public class Peaklassfx extends Application {
                 tekst2.setFont(Font.font(30));
                 GridPane.setConstraints(tekst2, 0, 1);
             }
-            //TODO Need kaks if ja if else lauset võib vist ära kustutada
-            if (tekst1 != null && tekst2 == null) {
-                gridValikud.getChildren().add(tekst1);
-                PauseTransition pause = new PauseTransition(Duration.seconds(4));
-                Text finalTekst1 = tekst1;
-                pause.setOnFinished(e -> finalTekst1.setText(null));
-                pause.play();
-            }
-            else if (tekst2 != null && tekst1 == null) {
-                gridValikud.getChildren().add(tekst2);
-                PauseTransition pause = new PauseTransition(Duration.seconds(4));
-                Text finalTekst2 = tekst2;
-                pause.setOnFinished(e -> finalTekst2.setText(null));
-                pause.play();
-            }
-            else {
-                gridValikud.getChildren().addAll(tekst1,tekst2);
-                PauseTransition pause = new PauseTransition(Duration.seconds(4));
-                Text finalTekst2 = tekst2;
-                Text finalTekst1 = tekst1;
-                pause.setOnFinished(e -> {
-                    finalTekst2.setText(null);
-                    finalTekst1.setText(null);
-                });
-                pause.play();
-            }
 
+            gridValikud.getChildren().addAll(tekst1,tekst2);
+            PauseTransition pause = new PauseTransition(Duration.seconds(4));
+            Text finalTekst2 = tekst2;
+            Text finalTekst1 = tekst1;
+            pause.setOnFinished(e -> {
+                finalTekst2.setText(null);
+                finalTekst1.setText(null);
+            });
+            pause.play();
         });
 
         välju.setOnAction(actionEvent ->  {
