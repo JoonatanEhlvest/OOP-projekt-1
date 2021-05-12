@@ -421,9 +421,6 @@ public class Peaklassfx extends Application {
         double nupuSuurusW = laiusResolutsioon*0.15;
         double nupuSuurusH = laiusResolutsioon*0.05;
 
-        pealava.setMinHeight(720);
-        pealava.setMinWidth(1280);
-
         GridPane edasigrid = new GridPane();
 
         Random suvalineArv = new Random();
@@ -630,9 +627,6 @@ public class Peaklassfx extends Application {
             hoiatus.setText(null);
         });
         pause.play();
-
-        pealava.setMinHeight(720);
-        pealava.setMinWidth(1280);
 
         pealava.widthProperty().addListener((observable, oldValue, newValue) -> {
             taustapilt.setFitWidth((double) newValue);
