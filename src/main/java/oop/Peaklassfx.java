@@ -26,7 +26,7 @@ import java.io.InputStream;
 import java.util.*;
 
 public class Peaklassfx extends Application {
-    private static double laiusResolutsioon = 1280;
+    private static double laiusResolutsioon = 1080;
     private static double kõrgusResolutsioon = 720;
     private static int raskus = 1;
 
@@ -41,6 +41,8 @@ public class Peaklassfx extends Application {
         pealava.setTitle("Basic Dungeon");
         Scene algusStseen = algusStseen(pealava);
         pealava.setScene(algusStseen);
+        pealava.setMinHeight(720);
+        pealava.setMinWidth(1080);
 
         pealava.show();
 
@@ -177,9 +179,6 @@ public class Peaklassfx extends Application {
         mängijapilt.setRotationAxis(Rotate.Y_AXIS);
         mängijapilt.setRotate(180);
 
-        pealava.setMinHeight(720);
-        pealava.setMinWidth(1280);
-
         mängijapilt.setY(scene.getHeight() * 0.56);
         mängijapilt.setX(scene.getWidth() * 0.15);
         mängijapilt.setFitWidth(128 + scene.getWidth() * 0.1);
@@ -256,7 +255,6 @@ public class Peaklassfx extends Application {
             elud.setTranslateX(scene.getWidth() * 0.67);
             elud.setTranslateY(scene.getWidth() * 0.28);
 
-            laiusResolutsioon = (double) newValue;
         });
 
         pealava.heightProperty().addListener((observable, oldValue, newValue) -> {
@@ -271,7 +269,6 @@ public class Peaklassfx extends Application {
             vastanePilt.setY(scene.getHeight() * 0.56);
             vastanePilt.setFitHeight(128 + scene.getWidth() * 0.1);
 
-            kõrgusResolutsioon = (double) newValue;
         });
 
         ründa.setOnAction(actionEvent -> {
@@ -474,7 +471,6 @@ public class Peaklassfx extends Application {
             edasigrid.setTranslateX(scene.getWidth()*0.2);
             Ei.setPrefWidth(scene.getWidth()*0.15);
             Jah.setPrefWidth(scene.getWidth()*0.15);
-            laiusResolutsioon = (double) newValue;
         });
 
         pealava.heightProperty().addListener((observable, oldValue, newValue) -> {
@@ -485,7 +481,6 @@ public class Peaklassfx extends Application {
             edasigrid.setTranslateY(scene.getHeight()*0.3);
             Ei.setPrefHeight(scene.getHeight()*0.05);
             Jah.setPrefHeight(scene.getHeight()*0.05);
-            kõrgusResolutsioon = (double) newValue;
         });
 
         return scene;
@@ -667,7 +662,6 @@ public class Peaklassfx extends Application {
                 elud.setTranslateY(scene.getWidth() * 0.28);
                 bp.getChildren().add(elud);
             }
-            laiusResolutsioon = (double) newValue;
         });
 
         pealava.heightProperty().addListener((observable, oldValue, newValue) -> {
@@ -692,7 +686,6 @@ public class Peaklassfx extends Application {
                 vastanePilt.setY(scene.getHeight() * 0.56);
                 vastanePilt.setFitHeight(128 + scene.getWidth() * 0.1);
             }
-            kõrgusResolutsioon = (double) newValue;
         });
 
         ründa.setOnAction(actionEvent -> {
@@ -970,9 +963,6 @@ public class Peaklassfx extends Application {
 
         bp.setBottom(gridValikud);
 
-        pealava.setMinHeight(757);
-        pealava.setMinWidth(1293);
-
         // Algväärtustab nuppude suurused
         double nupuSuurusW = laiusResolutsioon*0.15;
         double nupuSuurusH = kõrgusResolutsioon*0.05;
@@ -1006,7 +996,6 @@ public class Peaklassfx extends Application {
                 mängijapilt.setY(scene.getHeight()*0.5);
                 mängijapilt.setFitWidth(128+scene.getWidth()*0.1);
             }
-            laiusResolutsioon = (double) newValue;
         });
 
         pealava.heightProperty().addListener((observable, oldValue, newValue) -> {
@@ -1024,7 +1013,6 @@ public class Peaklassfx extends Application {
                 mängijapilt.setX(scene.getWidth()*0.6);
                 mängijapilt.setFitHeight(128+scene.getWidth()*0.1);
             }
-            kõrgusResolutsioon = (double) newValue;
         });
 
         if (ruumid.get(ruuminumber) instanceof Võitlusruum) {
@@ -1137,6 +1125,13 @@ public class Peaklassfx extends Application {
 
         Button valik1 = new Button("Alusta uut mängu");
         Button valik2 = new Button("Jätka salvestatud mängu");
+        // Algväärtustab nuppude suurused
+        double nupuSuurusW = laiusResolutsioon*0.15;
+        double nupuSuurusH = kõrgusResolutsioon*0.05;
+        nuppSuurusW(valik1,nupuSuurusW);
+        nuppSuurusW(valik2,nupuSuurusW);
+        nuppSuurusH(valik1,nupuSuurusH);
+        nuppSuurusH(valik2,nupuSuurusH);
 
         VBox vb = new VBox(valik1, valik2);
         vb.setAlignment(Pos.CENTER);
@@ -1147,15 +1142,16 @@ public class Peaklassfx extends Application {
             double nuppuSuurus = (double) newValue*0.15;
             nuppSuurusW(valik1,nuppuSuurus);
             nuppSuurusW(valik2,nuppuSuurus);
-            laiusResolutsioon = (double) newValue;
-
+            // Lahutame välja timmitud arvu piksleid, kuna muidu muutus aken stseene vahetades järjest suuremaks
+            laiusResolutsioon = (double) newValue- 16;
         });
         pealava.heightProperty().addListener((observable, oldValue, newValue) -> {
             taustapilt.setFitHeight((double) newValue);
             double nuppuSuurus = (double) newValue*0.05;
             nuppSuurusH(valik1,nuppuSuurus);
             nuppSuurusH(valik2,nuppuSuurus);
-            kõrgusResolutsioon = (double) newValue;
+            // Lahutame välja timmitud arvu piksleid, kuna muidu muutus aken stseene vahetades järjest suuremaks
+            kõrgusResolutsioon = (double) newValue - 39;
         });
 
 
@@ -1211,6 +1207,14 @@ public class Peaklassfx extends Application {
         Button valik1 = new Button("Välju mängust");
         Button valik2 = new Button("Alusta uut mängu");
 
+        // Algväärtustab nuppude suurused
+        double nupuSuurusW = laiusResolutsioon*0.15;
+        double nupuSuurusH = kõrgusResolutsioon*0.05;
+        nuppSuurusW(valik1,nupuSuurusW);
+        nuppSuurusW(valik2,nupuSuurusW);
+        nuppSuurusH(valik1,nupuSuurusH);
+        nuppSuurusH(valik2,nupuSuurusH);
+
         VBox vb = new VBox(õnnitlused ,valik1, valik2);
         vb.setAlignment(Pos.CENTER);
         bp.setCenter(vb);
@@ -1219,8 +1223,6 @@ public class Peaklassfx extends Application {
             taustapilt.setFitWidth((double) newValue);
             double nuppuSuurus = (double) newValue*0.15;
             nuppSuurusW(valik1,nuppuSuurus);
-            nuppSuurusW(valik2,nuppuSuurus);
-            laiusResolutsioon = (double) newValue;
 
         });
         pealava.heightProperty().addListener((observable, oldValue, newValue) -> {
@@ -1228,7 +1230,6 @@ public class Peaklassfx extends Application {
             double nuppuSuurus = (double) newValue*0.05;
             nuppSuurusH(valik1,nuppuSuurus);
             nuppSuurusH(valik2,nuppuSuurus);
-            kõrgusResolutsioon = (double) newValue;
         });
 
 
