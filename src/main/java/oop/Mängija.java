@@ -1,6 +1,7 @@
 package oop;
 
-import java.io.Serializable;
+import javafx.scene.control.TextArea;
+
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -11,6 +12,7 @@ public class Mängija extends Olend{
     private int manaTaastumine;
     private Kaitserüü kaitserüü;
     private Relv relv;
+    TextArea väljundTekstiväli;
 
     public Mängija(String nimi, int elud, int maxMana, int tugevus, int eludeTaastumine, int manaTaastumine) {
         super(elud, nimi, tugevus, eludeTaastumine);
@@ -181,6 +183,10 @@ public class Mängija extends Olend{
 
     public int getManaTaastumine() {
         return manaTaastumine;
+    }
+
+    public void setVäljundTekstiväli(TextArea väljundTekstiväli) {
+        this.väljundTekstiväli = väljundTekstiväli;
     }
 
     @Override

@@ -6,10 +6,10 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -23,6 +23,8 @@ import java.io.InputStream;
 import java.util.*;
 
 public class Peaklassfx extends Application {
+    private static final int laiusResolutsioon = 1280;
+    private static final int kõrgusResolutsioon = 720;
 
     public static void main(String[] args) {
         launch(args);
@@ -139,8 +141,8 @@ public class Peaklassfx extends Application {
         Image taust = pilt(pilt);
         ImageView taustapilt = new ImageView();
         taustapilt.setImage(taust);
-        taustapilt.setFitWidth(1280);
-        taustapilt.setFitHeight(720);
+        taustapilt.setFitWidth(laiusResolutsioon);
+        taustapilt.setFitHeight(kõrgusResolutsioon);
 
         BorderPane bp = new BorderPane();
         bp.getChildren().add(taustapilt);
@@ -168,6 +170,14 @@ public class Peaklassfx extends Application {
 
         bp.setTop(gridValikud);
 
+        // Textarea
+        TextArea tekstiväli = new TextArea();
+        tekstiväli.setMaxSize(laiusResolutsioon*0.4, kõrgusResolutsioon*0.4);
+        tekstiväli.setOpacity(1);
+        //tekstiväli.setStyle("-fx-background-color: rgba(76, 175, 80, 0.1)");
+        //tekstiväli.setStyle("--fx-control-inner-background: rgba(76, 175, 80, 0.1)");
+        bp.setCenter(tekstiväli);
+
         Text hoiatus = new Text("Saad ohutult edasi liikuda kui vastane on surnud!");
         hoiatus.setFill(Color.WHITE);
         hoiatus.setFont(Font.font(30));
@@ -178,7 +188,7 @@ public class Peaklassfx extends Application {
         });
         pause.play();
 
-        Scene scene = new Scene(bp, 1280, 720);
+        Scene scene = new Scene(bp, laiusResolutsioon, kõrgusResolutsioon);
 
         pealava.setMinHeight(757);
         pealava.setMinWidth(1293);
@@ -244,8 +254,8 @@ public class Peaklassfx extends Application {
         Image taust = pilt("images/Taust.jpg");
         ImageView taustapilt = new ImageView();
         taustapilt.setImage(taust);
-        taustapilt.setFitWidth(1280);
-        taustapilt.setFitHeight(720);
+        taustapilt.setFitWidth(laiusResolutsioon);
+        taustapilt.setFitHeight(kõrgusResolutsioon);
 
         Image mängija = pilt("images/Player.png");
         ImageView mängijapilt = new ImageView();
@@ -257,7 +267,7 @@ public class Peaklassfx extends Application {
         bp.getChildren().add(taustapilt);
         bp.getChildren().add(mängijapilt);
 
-        Scene scene = new Scene(bp, 1280, 720);
+        Scene scene = new Scene(bp, laiusResolutsioon, kõrgusResolutsioon);
 
         // Nupud:
         GridPane gridValikud = new GridPane();
@@ -292,7 +302,7 @@ public class Peaklassfx extends Application {
 
 
         /**
-         * NEED KAKS KUULARIT MUUDAVAD NENDE ASJADE SUURUST, MIS SIIN KIRJELDATUD ON, hetkel ainult tausta
+         * NEED KAKS KUULARIT MUUDAVAD NENDE ASJADE SUURUST, MIS SIIN KIRJELDATUD ON
          * Aga siia lisada veel peategelane, vastane ja siis nupud jne.
          * Ja pärast tsüklis saame omistada uusi asju nendele imageView-dele ja vastase isendile
          */
@@ -320,9 +330,7 @@ public class Peaklassfx extends Application {
         });
 
         if (ruumid.get(ruuminumber) instanceof Võitlusruum) {
-            edasi.setOnAction(actionEvent -> {
-                pealava.setScene(võitlusStseen(pealava, ruumid, ruuminumber+1, m1));
-            });
+            edasi.setOnAction(actionEvent -> pealava.setScene(võitlusStseen(pealava, ruumid, ruuminumber+1, m1)));
         }
         else if (ruumid.get(ruuminumber) instanceof Aarderuum) { //TODO aarderuumi scene
             edasi.setOnAction(actionEvent -> {
@@ -341,15 +349,15 @@ public class Peaklassfx extends Application {
             vaataKaarti.setFont(Font.font(30));
             GridPane.setConstraints(vaataKaarti, 0, 0);
             gridValikud.getChildren().add(vaataKaarti);
-            PauseTransition pause = new PauseTransition(Duration.seconds(4));
+            PauseTransition pause = new PauseTransition(Duration.seconds(6));
             pause.setOnFinished(e -> vaataKaarti.setText(null));
             pause.play();
 
         });
 
         varustus.setOnAction(actionEvent ->  {
-            Text tekst1 = new Text();
-            Text tekst2 = new Text();
+            Text tekst1;
+            Text tekst2;
             if (m1.getRelv() != null){
                 tekst1 = new Text("Elud="+m1.getElud()+" Tugevus="+(m1.getTugevus()+m1.getRelv().getRünnak())+" Mana="+m1.getMana()+", mis taastub "+m1.getManaTaastumine()+" võrra");
                 tekst1.setFill(Color.WHITE);
@@ -386,6 +394,7 @@ public class Peaklassfx extends Application {
                 tekst2.setFont(Font.font(30));
                 GridPane.setConstraints(tekst2, 0, 1);
             }
+            //TODO Need kaks if ja if else lauset võib vist ära kustutada
             if (tekst1 != null && tekst2 == null) {
                 gridValikud.getChildren().add(tekst1);
                 PauseTransition pause = new PauseTransition(Duration.seconds(4));
