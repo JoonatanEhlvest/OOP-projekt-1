@@ -295,10 +295,35 @@ public class Peaklassfx extends Application {
             if (vr.getNimi().equals("Labor")) {
                 mängijapilt.setX(scene.getWidth()*0.25);
                 mängijapilt.setFitWidth(128+scene.getWidth()*0.07);
+                TextFlow eludjamana = new TextFlow(mängijaElud,new Text("   "),mängijaMana);
+                eludjamana.setTranslateX(scene.getWidth() * 0.28);
+                eludjamana.setTranslateY(scene.getWidth() * 0.25);
+                bp.getChildren().add(eludjamana);
             }
             else {
                 mängijapilt.setX(scene.getWidth() * 0.15);
                 mängijapilt.setFitWidth(128 + scene.getWidth() * 0.1);
+                TextFlow eludjamana = new TextFlow(mängijaElud,new Text("   "),mängijaMana);
+                eludjamana.setTranslateX(scene.getWidth() * 0.20);
+                eludjamana.setTranslateY(scene.getWidth() * 0.28);
+                bp.getChildren().add(eludjamana);
+            }
+            if (vr.getNimi().equals("Labor")) {
+                vastanePilt.setX(scene.getWidth()*0.65);
+                vastanePilt.setFitWidth(128+scene.getWidth()*0.07);
+                TextFlow elud = new TextFlow(vastaneElud);
+                elud.setTranslateX(scene.getWidth() * 0.72);
+                elud.setTranslateY(scene.getWidth() * 0.26);
+                bp.getChildren().add(elud);
+
+            }
+            else {
+                vastanePilt.setX(scene.getWidth() * 0.6);
+                vastanePilt.setFitWidth(128 + scene.getWidth() * 0.1);
+                TextFlow elud = new TextFlow(vastaneElud);
+                elud.setTranslateX(scene.getWidth() * 0.67);
+                elud.setTranslateY(scene.getWidth() * 0.28);
+                bp.getChildren().add(elud);
             }
             laiusResolutsioon = (double) newValue;
         });
@@ -316,6 +341,14 @@ public class Peaklassfx extends Application {
             else {
                 mängijapilt.setY(scene.getHeight() * 0.56);
                 mängijapilt.setFitHeight(128 + scene.getWidth() * 0.1);
+            }
+            if (vr.getNimi().equals("Labor")) {
+                vastanePilt.setY(scene.getHeight()*0.5);
+                vastanePilt.setFitHeight(128+scene.getWidth()*0.07);
+            }
+            else {
+                vastanePilt.setY(scene.getHeight() * 0.56);
+                vastanePilt.setFitHeight(128 + scene.getWidth() * 0.1);
             }
             kõrgusResolutsioon = (double) newValue;
         });
