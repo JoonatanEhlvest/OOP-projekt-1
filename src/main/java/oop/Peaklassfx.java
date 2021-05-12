@@ -190,17 +190,23 @@ public class Peaklassfx extends Application {
         itemDesc.setFill(Color.WHITE);
         itemDesc.setFont(Font.font(30));
 
-        Text kontroll = new Text("Kas soovid vahetada?:");
+        Text kontroll = new Text("Sattusid aarderuumi. Kas soovid vahetada?:");
         kontroll.setFill(Color.WHITE);
         kontroll.setFont(Font.font(30));
         GridPane.setConstraints(kontroll, 0, 2);
 
         // Jah
         Button Jah = new Button("Jah");
+        Jah.setPrefWidth(scene.getHeight()*0.15);
+        Jah.setPrefHeight(scene.getHeight()*0.05);
         GridPane.setConstraints(Jah, 0, 3);
+
         // Ei
         Button Ei = new Button("Ei");
+        Ei.setPrefWidth(scene.getHeight()*0.15);
+        Ei.setPrefHeight(scene.getHeight()*0.05);
         GridPane.setConstraints(Ei, 1, 3);
+
 
         GridPane.setConstraints(itemDesc, 0, 1);
 
@@ -224,6 +230,8 @@ public class Peaklassfx extends Application {
             mängijapilt.setX(scene.getWidth() * 0.15);
             mängijapilt.setFitWidth(128 + scene.getWidth() * 0.1);
             edasigrid.setTranslateX(scene.getWidth()*0.3);
+            Ei.setPrefWidth(scene.getHeight()*0.15);
+            Jah.setPrefWidth(scene.getHeight()*0.15);
             laiusResolutsioon = (double) newValue;
         });
 
@@ -233,6 +241,8 @@ public class Peaklassfx extends Application {
             mängijapilt.setY(scene.getHeight() * 0.56);
             mängijapilt.setFitHeight(128 + scene.getWidth() * 0.1);
             edasigrid.setTranslateY(scene.getHeight()*0.3);
+            Ei.setPrefHeight(scene.getHeight()*0.05);
+            Jah.setPrefHeight(scene.getHeight()*0.05);
             kõrgusResolutsioon = (double) newValue;
         });
 
@@ -453,7 +463,15 @@ public class Peaklassfx extends Application {
                 Võitlus(m1, vastane);
                 int vahe = eludenne - m1.getElud();
                 int evahe = eludennev - vastane.getElud();
-
+                if (evahe<=0) {
+                    vastane.setElud(0);
+                    vastanePilt.setRotationAxis(Rotate.Z_AXIS);
+                    vastanePilt.setRotate(90);
+                    Text teadeVastaseSurm = new Text("Alistasid oma vastase! Võid ohutult edasi liikuda.");
+                    teadeVastaseSurm.setFill(Color.WHITE);
+                    teadeVastaseSurm.setFont(Font.font(30));
+                    bp.setCenter(teadeVastaseSurm);
+                }
                 Text tekst = new Text("Ründad vastast!");
                 tekst.setFill(Color.WHITE);
                 tekst.setFont(Font.font(30));
@@ -504,15 +522,6 @@ public class Peaklassfx extends Application {
 
                 pause1.play();
                 m1.taastaMana(3);
-            }
-            else {
-                vastane.setElud(0);
-                vastanePilt.setRotationAxis(Rotate.X_AXIS);
-                vastanePilt.setRotate(90);
-                Text teadeVastaseSurm = new Text("Alistasid oma vastase! Võid ohutult edasi liikuda.");
-                teadeVastaseSurm.setFill(Color.WHITE);
-                teadeVastaseSurm.setFont(Font.font(30));
-                bp.setCenter(teadeVastaseSurm);
             }
         });
         põgene.setOnAction(actionEvent -> {
@@ -573,6 +582,8 @@ public class Peaklassfx extends Application {
                 // Jah
                 Button Jah = new Button("Jah");
                 GridPane.setConstraints(Jah, 0, 3);
+                Jah.setPrefWidth(scene.getHeight()*0.15);
+                Jah.setPrefHeight(scene.getHeight()*0.05);
                 // Ei
                 Button Ei = new Button("Ei");
                 GridPane.setConstraints(Ei, 1, 3);
@@ -596,38 +607,52 @@ public class Peaklassfx extends Application {
         });
         // Maagiaga ründamine
         maagia.setOnAction(actionEvent -> {
-            TextField sisestusAla = new TextField();
-            sisestusAla.setPromptText("Sisesta, mitme managa tahad vastast rünnata (täisarv) ja vajuta enter");
-            bp.setBottom(sisestusAla);
-            PauseTransition pausPärastRünnakut = new PauseTransition(Duration.seconds(3));
-            pausPärastRünnakut.setOnFinished(e -> {
-                bp.setCenter(null);
-            });
-            sisestusAla.setOnKeyPressed(event -> {
-                if (event.getCode().equals(KeyCode.ENTER)) {
-                    int rünnakuTugevus;
-                    CharSequence sisestus = sisestusAla.getCharacters();
-                    try {
-                        rünnakuTugevus = Integer.parseInt(String.valueOf(sisestus));
-                        m1.ründaMaagiaga(vastane, rünnakuTugevus);
-                        mängijaMana.setText(String.valueOf(m1.getMana()));
-                        bp.setBottom(null);
-                        Text edukasTekst = new Text("Ründasid vastast maagiaga ja tegid " + rünnakuTugevus + " punkti haiget");
-                        edukasTekst.setFill(Color.WHITE);
-                        edukasTekst.setFont(Font.font(30));
-                        bp.setCenter(edukasTekst);
-                        pausPärastRünnakut.play();
-                    }
-                    catch (NumberFormatException e) {
-                        Text exceptionText = new Text("Sisestasid vigase numbri: " + sisestus + "\nPalun sisesta täisarv");
-                        exceptionText.setFill(Color.WHITE);
-                        exceptionText.setFont(Font.font(30));
-                        bp.setCenter(exceptionText);
-                        pausPärastRünnakut.play();
-                    }
-                }
-            });
+            if (vastane.isElus()) {
+                int eludennev = vastane.getElud();
+                TextField sisestusAla = new TextField();
+                sisestusAla.setPromptText("Sisesta, mitme managa tahad vastast rünnata (täisarv) ja vajuta enter");
+                bp.setBottom(sisestusAla);
+                PauseTransition pausPärastRünnakut = new PauseTransition(Duration.seconds(3));
+                pausPärastRünnakut.setOnFinished(e -> {
+                    bp.setCenter(null);
+                });
+                sisestusAla.setOnKeyPressed(event -> {
+                    if (event.getCode().equals(KeyCode.ENTER)) {
+                        int rünnakuTugevus;
+                        CharSequence sisestus = sisestusAla.getCharacters();
+                        try {
+                            rünnakuTugevus = Integer.parseInt(String.valueOf(sisestus));
+                            m1.ründaMaagiaga(vastane, rünnakuTugevus);
+                            mängijaMana.setText(String.valueOf(m1.getMana()));
+                            bp.setBottom(null);
+                            Text edukasTekst = new Text("Ründasid vastast maagiaga ja tegid " + rünnakuTugevus + " punkti haiget");
+                            edukasTekst.setFill(Color.WHITE);
+                            edukasTekst.setFont(Font.font(30));
+                            bp.setCenter(edukasTekst);
+                            pausPärastRünnakut.play();
 
+                            vastaneElud.setText(String.valueOf(vastane.getElud()));
+                            if (vastane.getElud()<=0) {
+                                vastane.setElud(0);
+                                vastanePilt.setRotationAxis(Rotate.Z_AXIS);
+                                vastanePilt.setRotate(90);
+                                Text teadeVastaseSurm = new Text("Alistasid oma vastase! Võid ohutult edasi liikuda.");
+                                teadeVastaseSurm.setFill(Color.WHITE);
+                                teadeVastaseSurm.setFont(Font.font(30));
+                                bp.getChildren().add(teadeVastaseSurm);
+                            }
+
+                        } catch (NumberFormatException e) {
+                            Text exceptionText = new Text("Sisestasid vigase numbri: " + sisestus + "\nPalun sisesta täisarv");
+                            exceptionText.setFill(Color.WHITE);
+                            exceptionText.setFont(Font.font(30));
+                            bp.setCenter(exceptionText);
+                            pausPärastRünnakut.play();
+                        }
+
+                    }
+                });
+            }
         });
 
         return scene;
