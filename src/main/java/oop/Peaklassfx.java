@@ -6,6 +6,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -41,7 +42,6 @@ public class Peaklassfx extends Application {
         pealava.setScene(algusStseen);
 
         pealava.show();
-
 
     }
 
@@ -252,6 +252,15 @@ public class Peaklassfx extends Application {
         Button maagia = new Button("Ründa maagiaga");
         GridPane.setConstraints(maagia, 2, 0);
 
+        double nupuSuurusW = laiusResolutsioon*0.15;
+        double nupuSuurusH = laiusResolutsioon*0.05;
+        nuppSuurusW(ründa,nupuSuurusW);
+        nuppSuurusW(põgene,nupuSuurusW);
+        nuppSuurusW(maagia,nupuSuurusW);
+        nuppSuurusH(ründa,nupuSuurusH);
+        nuppSuurusH(põgene,nupuSuurusH);
+        nuppSuurusH(maagia,nupuSuurusH);
+
         gridValikud.getChildren().addAll(ründa, põgene, maagia);
         gridValikud.setAlignment(Pos.CENTER);
 
@@ -291,6 +300,7 @@ public class Peaklassfx extends Application {
                 mängijapilt.setX(scene.getWidth() * 0.15);
                 mängijapilt.setFitWidth(128 + scene.getWidth() * 0.1);
             }
+            laiusResolutsioon = (double) newValue;
         });
 
         pealava.heightProperty().addListener((observable, oldValue, newValue) -> {
@@ -307,6 +317,7 @@ public class Peaklassfx extends Application {
                 mängijapilt.setY(scene.getHeight() * 0.56);
                 mängijapilt.setFitHeight(128 + scene.getWidth() * 0.1);
             }
+            kõrgusResolutsioon = (double) newValue;
         });
 
         ründa.setOnAction(actionEvent -> {
@@ -330,6 +341,13 @@ public class Peaklassfx extends Application {
             mMana.setFill(Color.BLUE);
             mMana.setFont(Font.font(40));
 
+
+            if (!vastane.isElus()) {
+                Text teadeVastaseSurm = new Text("Alistasid oma vastase! Võid ohutult edasi liikuda.");
+                teadeVastaseSurm.setFill(Color.WHITE);
+                teadeVastaseSurm.setFont(Font.font(30));
+                bp.setCenter(teadeVastaseSurm);
+            }
 
             TextFlow mTekst = new TextFlow(mElud,new Text(System.lineSeparator()),mMana);
 
