@@ -25,8 +25,8 @@ import java.io.InputStream;
 import java.util.*;
 
 public class Peaklassfx extends Application {
-    private static final int laiusResolutsioon = 1280;
-    private static final int kõrgusResolutsioon = 720;
+    private static double laiusResolutsioon = 1280;
+    private static double kõrgusResolutsioon = 720;
 
     public static void main(String[] args) {
         launch(args);
@@ -511,7 +511,7 @@ public class Peaklassfx extends Application {
         pealava.setMinHeight(757);
         pealava.setMinWidth(1293);
 
-        // Algväärtusta nuppude suurused
+        // Algväärtustab nuppude suurused
         double nupuSuurusW = laiusResolutsioon*0.15;
         double nupuSuurusH = kõrgusResolutsioon*0.05;
         nuppSuurusW(edasi,nupuSuurusW);
@@ -544,7 +544,7 @@ public class Peaklassfx extends Application {
                 mängijapilt.setY(scene.getHeight()*0.5);
                 mängijapilt.setFitWidth(128+scene.getWidth()*0.1);
             }
-
+            laiusResolutsioon = (double) newValue;
         });
 
         pealava.heightProperty().addListener((observable, oldValue, newValue) -> {
@@ -562,6 +562,7 @@ public class Peaklassfx extends Application {
                 mängijapilt.setX(scene.getWidth()*0.6);
                 mängijapilt.setFitHeight(128+scene.getWidth()*0.1);
             }
+            kõrgusResolutsioon = (double) newValue;
         });
 
         if (ruumid.get(ruuminumber) instanceof Võitlusruum) {
@@ -646,7 +647,6 @@ public class Peaklassfx extends Application {
         });
 
         välju.setOnAction(actionEvent ->  {
-            //TODO salvestamine
             try {
             Salvestaja.salvestaMängija(m1);
             Salvestaja.salvestaKoobas(ruumid);
@@ -685,6 +685,7 @@ public class Peaklassfx extends Application {
             double nuppuSuurus = (double) newValue*0.15;
             nuppSuurusW(valik1,nuppuSuurus);
             nuppSuurusW(valik2,nuppuSuurus);
+            laiusResolutsioon = (double) newValue;
 
         });
         pealava.heightProperty().addListener((observable, oldValue, newValue) -> {
@@ -692,6 +693,7 @@ public class Peaklassfx extends Application {
             double nuppuSuurus = (double) newValue*0.05;
             nuppSuurusH(valik1,nuppuSuurus);
             nuppSuurusH(valik2,nuppuSuurus);
+            kõrgusResolutsioon = (double) newValue;
         });
 
 

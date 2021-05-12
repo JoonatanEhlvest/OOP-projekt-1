@@ -1,3 +1,6 @@
+/**
+ * Sisaldab meetodeid, mis salvestavad failidesse mängu käigus muutuvad Objektid ja väärtused
+ */
 package oop;
 
 import java.io.*;

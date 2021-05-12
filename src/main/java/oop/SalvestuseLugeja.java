@@ -1,3 +1,7 @@
+/**
+ * Sisaldab meetodeid, millega loetakse sisse failidesse salvestatud Objektid ja väärtused
+ */
+
 package oop;
 
 import java.io.DataInputStream;
