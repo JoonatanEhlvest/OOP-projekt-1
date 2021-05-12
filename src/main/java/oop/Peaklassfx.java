@@ -197,24 +197,25 @@ public class Peaklassfx extends Application {
 
         // Jah
         Button Jah = new Button("Jah");
-        Jah.setPrefWidth(scene.getHeight()*0.15);
-        Jah.setPrefHeight(scene.getHeight()*0.05);
+        Jah.setMinHeight(scene.getHeight()*0.05);
+        Jah.setMinWidth(scene.getWidth()*0.15);
+
         GridPane.setConstraints(Jah, 0, 3);
 
         // Ei
         Button Ei = new Button("Ei");
-        Ei.setPrefWidth(scene.getHeight()*0.15);
-        Ei.setPrefHeight(scene.getHeight()*0.05);
+        Ei.setMinHeight(scene.getHeight()*0.05);
+        Ei.setMinWidth(scene.getWidth()*0.15);
         GridPane.setConstraints(Ei, 1, 3);
 
 
         GridPane.setConstraints(itemDesc, 0, 1);
 
         edasigrid.getChildren().addAll(itemDesc,Jah,Ei, kontroll);
-        edasigrid.setTranslateX(scene.getWidth()*0.3);
+        edasigrid.setTranslateX(scene.getWidth()*0.2);
         edasigrid.setTranslateY(scene.getHeight()*0.3);
 
-        bp.getChildren().add(edasigrid);
+        bp.setCenter(edasigrid);
         Jah.setOnAction(actionEvent1 -> {
             if (item instanceof Relv) m1.setRelv((Relv) item);
             else if (item instanceof Kaitserüü) m1.setKaitserüü((Kaitserüü) item);
@@ -229,9 +230,9 @@ public class Peaklassfx extends Application {
 
             mängijapilt.setX(scene.getWidth() * 0.15);
             mängijapilt.setFitWidth(128 + scene.getWidth() * 0.1);
-            edasigrid.setTranslateX(scene.getWidth()*0.3);
-            Ei.setPrefWidth(scene.getHeight()*0.15);
-            Jah.setPrefWidth(scene.getHeight()*0.15);
+            edasigrid.setTranslateX(scene.getWidth()*0.2);
+            Ei.setPrefWidth(scene.getWidth()*0.15);
+            Jah.setPrefWidth(scene.getWidth()*0.15);
             laiusResolutsioon = (double) newValue;
         });
 
@@ -386,8 +387,8 @@ public class Peaklassfx extends Application {
         });
         pause.play();
 
-        pealava.setMinHeight(757);
-        pealava.setMinWidth(1293);
+        pealava.setMinHeight(kõrgusResolutsioon);
+        pealava.setMinWidth(laiusResolutsioon);
 
         pealava.widthProperty().addListener((observable, oldValue, newValue) -> {
             taustapilt.setFitWidth((double) newValue);
@@ -463,15 +464,6 @@ public class Peaklassfx extends Application {
                 Võitlus(m1, vastane);
                 int vahe = eludenne - m1.getElud();
                 int evahe = eludennev - vastane.getElud();
-                if (evahe<=0) {
-                    vastane.setElud(0);
-                    vastanePilt.setRotationAxis(Rotate.Z_AXIS);
-                    vastanePilt.setRotate(90);
-                    Text teadeVastaseSurm = new Text("Alistasid oma vastase! Võid ohutult edasi liikuda.");
-                    teadeVastaseSurm.setFill(Color.WHITE);
-                    teadeVastaseSurm.setFont(Font.font(30));
-                    bp.setCenter(teadeVastaseSurm);
-                }
                 Text tekst = new Text("Ründad vastast!");
                 tekst.setFill(Color.WHITE);
                 tekst.setFont(Font.font(30));
@@ -522,6 +514,15 @@ public class Peaklassfx extends Application {
 
                 pause1.play();
                 m1.taastaMana(3);
+            }
+            if (vastane.getElud()<=0) {
+                vastaneElud.setText(null);
+                vastanePilt.setRotationAxis(Rotate.Z_AXIS);
+                vastanePilt.setRotate(90);
+                Text teadeVastaseSurm = new Text("Alistasid oma vastase! Võid ohutult edasi liikuda.");
+                teadeVastaseSurm.setFill(Color.WHITE);
+                teadeVastaseSurm.setFont(Font.font(30));
+                bp.setCenter(teadeVastaseSurm);
             }
         });
         põgene.setOnAction(actionEvent -> {
