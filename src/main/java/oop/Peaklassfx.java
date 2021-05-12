@@ -2,18 +2,14 @@ package oop;
 
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -197,14 +193,14 @@ public class Peaklassfx extends Application {
 
         // Jah
         Button Jah = new Button("Jah");
-        Jah.setPrefWidth(scene.getHeight()*0.15);
-        Jah.setPrefHeight(scene.getHeight()*0.05);
+        Jah.setPrefWidth(kõrgusResolutsioon*0.15);
+        Jah.setPrefHeight(laiusResolutsioon*0.05);
         GridPane.setConstraints(Jah, 0, 3);
 
         // Ei
         Button Ei = new Button("Ei");
-        Ei.setPrefWidth(scene.getHeight()*0.15);
-        Ei.setPrefHeight(scene.getHeight()*0.05);
+        Ei.setPrefWidth(kõrgusResolutsioon*0.15);
+        Ei.setPrefHeight(laiusResolutsioon*0.05);
         GridPane.setConstraints(Ei, 1, 3);
 
 
@@ -214,7 +210,7 @@ public class Peaklassfx extends Application {
         edasigrid.setTranslateX(scene.getWidth()*0.3);
         edasigrid.setTranslateY(scene.getHeight()*0.3);
 
-        bp.getChildren().add(edasigrid);
+        bp.setCenter(edasigrid);
         Jah.setOnAction(actionEvent1 -> {
             if (item instanceof Relv) m1.setRelv((Relv) item);
             else if (item instanceof Kaitserüü) m1.setKaitserüü((Kaitserüü) item);
@@ -660,7 +656,7 @@ public class Peaklassfx extends Application {
     }
 
     public static Scene liikumisStseen(Stage pealava, List<Koobas> ruumid,int ruuminumber, Mängija m1, Varustus varustuseList) {
-        Image taust = null;
+        Image taust;
         if (ruuminumber == 0) taust = pilt("images/Taust.jpg");
         else {
             taust = pilt("images/Puhkeruum.jpg");
@@ -795,7 +791,7 @@ public class Peaklassfx extends Application {
         }
         else if (ruumid.get(ruuminumber) instanceof Lõksuruum) { //TODO lõksuruumi scene
             edasi.setOnAction(actionEvent -> {
-                /** pealava.setScene(võitlusStseen(pealava, (Lõksuruum) ruumid.get(ruuminumber), ruuminumber + 1)); */
+                pealava.setScene(lõpuStseen(pealava));
             });
         }
 
@@ -945,5 +941,53 @@ public class Peaklassfx extends Application {
         });
         Scene algusStseen = new Scene(bp, laiusResolutsioon, kõrgusResolutsioon);
         return algusStseen;
+    }
+
+    public static Scene lõpuStseen(Stage pealava) {
+        Image taust = pilt("images/Taust.jpg");
+        ImageView taustapilt = new ImageView();
+        taustapilt.setImage(taust);
+        taustapilt.setFitWidth(laiusResolutsioon);
+        taustapilt.setFitHeight(kõrgusResolutsioon);
+
+        BorderPane bp = new BorderPane();
+        bp.getChildren().add(taustapilt);
+
+        Text õnnitlused = new Text("Olete mängu võitnud!");
+        õnnitlused.setFill(Color.WHITE);
+        õnnitlused.setFont(Font.font(30));
+        Button valik1 = new Button("Välju mängust");
+        Button valik2 = new Button("Alusta uut mängu");
+
+        VBox vb = new VBox(õnnitlused ,valik1, valik2);
+        vb.setAlignment(Pos.CENTER);
+        bp.setCenter(vb);
+
+        pealava.widthProperty().addListener((observable, oldValue, newValue) -> {
+            taustapilt.setFitWidth((double) newValue);
+            double nuppuSuurus = (double) newValue*0.15;
+            nuppSuurusW(valik1,nuppuSuurus);
+            nuppSuurusW(valik2,nuppuSuurus);
+            laiusResolutsioon = (double) newValue;
+
+        });
+        pealava.heightProperty().addListener((observable, oldValue, newValue) -> {
+            taustapilt.setFitHeight((double) newValue);
+            double nuppuSuurus = (double) newValue*0.05;
+            nuppSuurusH(valik1,nuppuSuurus);
+            nuppSuurusH(valik2,nuppuSuurus);
+            kõrgusResolutsioon = (double) newValue;
+        });
+
+
+        valik1.setOnAction(actionEvent ->  {
+            pealava.close();
+        });
+
+        valik2.setOnAction(actionEvent ->  {
+            pealava.setScene(algusStseen(pealava));
+        });
+        Scene lõpuStseen = new Scene(bp, laiusResolutsioon, kõrgusResolutsioon);
+        return lõpuStseen;
     }
 }
