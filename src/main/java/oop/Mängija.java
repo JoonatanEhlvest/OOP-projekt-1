@@ -12,7 +12,6 @@ public class Mängija extends Olend{
     private int manaTaastumine;
     private Kaitserüü kaitserüü;
     private Relv relv;
-    TextArea väljundTekstiväli;
 
     public Mängija(String nimi, int elud, int maxMana, int tugevus, int eludeTaastumine, int manaTaastumine) {
         super(elud, nimi, tugevus, eludeTaastumine);
@@ -184,10 +183,7 @@ public class Mängija extends Olend{
     public int getManaTaastumine() {
         return manaTaastumine;
     }
-
-    public void setVäljundTekstiväli(TextArea väljundTekstiväli) {
-        this.väljundTekstiväli = väljundTekstiväli;
-    }
+    
 
     @Override
     public String toString() {
