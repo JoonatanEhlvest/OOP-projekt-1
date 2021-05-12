@@ -183,7 +183,7 @@ public class Mängija extends Olend{
     public int getManaTaastumine() {
         return manaTaastumine;
     }
-    
+
 
     @Override
     public String toString() {

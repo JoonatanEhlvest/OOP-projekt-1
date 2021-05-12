@@ -186,13 +186,6 @@ public class Peaklassfx extends Application {
 
         bp.setTop(gridValikud);
 
-        // Textarea
-        TextArea tekstiväli = new TextArea();
-        tekstiväli.setMaxSize(laiusResolutsioon*0.4, kõrgusResolutsioon*0.4);
-        tekstiväli.setOpacity(1);
-        //tekstiväli.setStyle("-fx-background-color: rgba(76, 175, 80, 0.1)");
-        //tekstiväli.setStyle("--fx-control-inner-background: rgba(76, 175, 80, 0.1)");
-        bp.setCenter(tekstiväli);
 
         Text hoiatus = new Text("Saad ohutult edasi liikuda kui vastane on surnud!");
         hoiatus.setFill(Color.WHITE);
