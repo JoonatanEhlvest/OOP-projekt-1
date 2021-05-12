@@ -55,7 +55,7 @@ public class Peaklassfx extends Application {
 
     public static List<Koobas> looKoobas() {
         /** VASTASTE NIMEDE LOOMINE */
-        List<String> nimed = Arrays.asList("Orc", "Maag");
+        List<String> nimed = Arrays.asList("Orc", "Maag","Lima","Zombie","Kummitus");
 
         /** KOOPA RUUMIDE LOOMINE JA SUVALISES JÄRJESTUSES KOOPASE PAIGUTAMINE*/
         List<Koobas> koobas = new ArrayList<>();
