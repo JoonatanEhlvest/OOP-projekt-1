@@ -34,24 +34,26 @@ public class Peaklassfx extends Application {
 
     @Override
     public void start(Stage pealava) {
-        /** MÄNGIJA LOOMINE */
-        Mängija m1 = new Mängija("Player 1", 40, 20, 5,4,3);
-        m1.setKaitserüü(new Kaitserüü(0,"Tavalised Riided"));
 
-        Varustus varustuseList = looVarustuseList();
-        List<Koobas> koobas = looKoobas();
-        
+
 
         /** MÄNG ALGAB SIIT */
         pealava.setTitle("Basic Dungeon");
-        int ruuminumber = 0;
-        Scene liikumisStseen = liikumisStseen(pealava, koobas, ruuminumber, m1, varustuseList);
-        pealava.setScene(liikumisStseen);
+        Scene algusStseen = algusStseen(pealava);
+        pealava.setScene(algusStseen);
 
         pealava.show();
 
 
     }
+
+    public static Mängija looMängija() {
+        /** MÄNGIJA LOOMINE */
+        Mängija m1 = new Mängija("Player 1", 40, 20, 5,4,3);
+        m1.setKaitserüü(new Kaitserüü(0,"Tavalised Riided"));
+        return m1;
+    }
+
     public static List<Koobas> looKoobas() {
         /** VASTASTE NIMEDE LOOMINE */
         List<String> nimed = Arrays.asList("Orc", "Maag");
@@ -698,8 +700,16 @@ public class Peaklassfx extends Application {
             nuppSuurusH(valik2,nuppuSuurus);
         });
 
+
         valik1.setOnAction(actionEvent ->  {
-            pealava.setScene(liikumisStseen(pealava, ));
+            Mängija m1 = looMängija();
+            Varustus varustuseList = looVarustuseList();
+            List<Koobas> koobas = looKoobas();
+            int ruuminumber = 0;
+            Scene liikumisStseen = liikumisStseen(pealava, koobas, ruuminumber, m1, varustuseList);
+            pealava.setScene(liikumisStseen);
         });
+        Scene algusStseen = new Scene(bp, laiusResolutsioon, kõrgusResolutsioon);
+        return algusStseen;
     }
 }
