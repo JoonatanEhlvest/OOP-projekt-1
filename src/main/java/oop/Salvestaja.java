@@ -1,9 +1,6 @@
 package oop;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.List;
 
 public class Salvestaja {
@@ -22,6 +19,12 @@ public class Salvestaja {
     public static void salvestaVarustus(Varustus varustusList) throws IOException{
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("varustuseSalvestus.obj"))) {
             out.writeObject(varustusList);
+        }
+    }
+
+    public static void salvestaRuuminumber(int ruuminumber) throws IOException{
+        try (DataOutputStream out = new DataOutputStream(new FileOutputStream("ruuminumber.dat"))) {
+            out.writeInt(ruuminumber);
         }
     }
 }

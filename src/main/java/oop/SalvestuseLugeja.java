@@ -1,6 +1,8 @@
 package oop;
 
+import java.io.DataInputStream;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.List;
 
@@ -18,6 +20,12 @@ public class SalvestuseLugeja {
     public static Varustus loeVarustusList() throws Exception {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("varustuseSalvestus.obj"))) {
             return (Varustus) in.readObject();
+        }
+    }
+    public static int loeRuuminumber() throws IOException {
+        try (DataInputStream in = new DataInputStream(new FileInputStream("ruuminumber.dat"))) {
+            int ruuminumber = in.readInt();
+            return ruuminumber;
         }
     }
 }

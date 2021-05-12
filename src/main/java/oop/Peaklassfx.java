@@ -656,6 +656,7 @@ public class Peaklassfx extends Application {
             Salvestaja.salvestaMängija(m1);
             Salvestaja.salvestaKoobas(ruumid);
             Salvestaja.salvestaVarustus(varustuseList);
+            Salvestaja.salvestaRuuminumber(ruuminumber);
             }
             catch (IOException e) {
                 System.out.println("Viga salvestamisega:" + e);
@@ -712,10 +713,12 @@ public class Peaklassfx extends Application {
             Mängija m1;
             Varustus varustuseList;
             List<Koobas> koobas;
+            int ruuminumber = 0;
 
             try { m1 = SalvestuseLugeja.loeMängija();
             varustuseList = SalvestuseLugeja.loeVarustusList();
-            koobas = SalvestuseLugeja.loeKoobas();}
+            koobas = SalvestuseLugeja.loeKoobas();
+            ruuminumber = SalvestuseLugeja.loeRuuminumber();}
             catch (Exception e) {
                 System.out.println("Salvestatu lugemisel tekkis viga: " + e);
                 System.out.println("Alustan uut mängu");
@@ -723,7 +726,7 @@ public class Peaklassfx extends Application {
                 varustuseList = looVarustuseList();
                 koobas = looKoobas();
             }
-            int ruuminumber = 0;
+
             Scene liikumisStseen = liikumisStseen(pealava, koobas, ruuminumber, m1, varustuseList);
             pealava.setScene(liikumisStseen);
         });
