@@ -38,25 +38,21 @@ public class Peaklassfx extends Application {
         Mängija m1 = new Mängija("Player 1", 40, 20, 5,4,3);
         m1.setKaitserüü(new Kaitserüü(0,"Tavalised Riided"));
 
-        /** VARUSTUSE LOOMINE JA LISAMINE VARUSTUSE LISTI */
-        Varustus varustuseList = new Varustus();
+        Varustus varustuseList = looVarustuseList();
+        List<Koobas> koobas = looKoobas();
+        
 
-        varustuseList.lisaAsi(new Relv(3, "Katkine Mõõk"));
-        varustuseList.lisaAsi(new Relv(Juhuslik.randint(1, 10), "Kööginuga"));
-        varustuseList.lisaAsi(new Relv(1, "Kahvel"));
-        varustuseList.lisaAsi(new Relv(10, "Legendaarne Mõõk"));
-        varustuseList.lisaAsi(new Relv(Juhuslik.randint(1, 10), "Vibu"));
-        varustuseList.lisaAsi(new Relv(Juhuslik.randint(1, 10), "Kirves"));
-        varustuseList.lisaAsi(new Relv(Juhuslik.randint(1, 10), "Oda"));
-        varustuseList.lisaAsi(new Relv(Juhuslik.randint(1, 10), "Võlurikepp"));
+        /** MÄNG ALGAB SIIT */
+        pealava.setTitle("Basic Dungeon");
+        int ruuminumber = 0;
+        Scene liikumisStseen = liikumisStseen(pealava, koobas, ruuminumber, m1, varustuseList);
+        pealava.setScene(liikumisStseen);
 
-        varustuseList.lisaAsi(new Kaitserüü(Juhuslik.randint(1, 10), "Mõrane Raudrüü"));
-        varustuseList.lisaAsi(new Kaitserüü(Juhuslik.randint(1, 10), "Kantud Nahkvest"));
-        varustuseList.lisaAsi(new Kaitserüü(Juhuslik.randint(1, 10), "Käekaitsmed"));
-        varustuseList.lisaAsi(new Kaitserüü(Juhuslik.randint(1, 10), "Maagiline müts"));
-        varustuseList.lisaAsi(new Kaitserüü(Juhuslik.randint(1, 10), "Sõdurisaapad"));
-        varustuseList.lisaAsi(new Kaitserüü(10, "Kuldne Rüü"));
+        pealava.show();
 
+
+    }
+    public static List<Koobas> looKoobas() {
         /** VASTASTE NIMEDE LOOMINE */
         List<String> nimed = Arrays.asList("Rott", "Luukere", "Vampiir", "Orc", "Bandiit", "Maag", "Maasööjauss");
 
@@ -77,15 +73,30 @@ public class Peaklassfx extends Application {
         //Collections.shuffle(koobas);
         koobas.add(lõpuruum);
 
-        /** MÄNG ALGAB SIIT */
-        pealava.setTitle("Basic Dungeon");
-        int ruuminumber = 0;
-        Scene liikumisStseen = liikumisStseen(pealava, koobas, ruuminumber, m1, varustuseList);
-        pealava.setScene(liikumisStseen);
+        return koobas;
+    }
 
-        pealava.show();
+    public static Varustus looVarustuseList() {
+        /** VARUSTUSE LOOMINE JA LISAMINE VARUSTUSE LISTI */
+        Varustus varustuseList = new Varustus();
 
+        varustuseList.lisaAsi(new Relv(3, "Katkine Mõõk"));
+        varustuseList.lisaAsi(new Relv(Juhuslik.randint(1, 10), "Kööginuga"));
+        varustuseList.lisaAsi(new Relv(1, "Kahvel"));
+        varustuseList.lisaAsi(new Relv(10, "Legendaarne Mõõk"));
+        varustuseList.lisaAsi(new Relv(Juhuslik.randint(1, 10), "Vibu"));
+        varustuseList.lisaAsi(new Relv(Juhuslik.randint(1, 10), "Kirves"));
+        varustuseList.lisaAsi(new Relv(Juhuslik.randint(1, 10), "Oda"));
+        varustuseList.lisaAsi(new Relv(Juhuslik.randint(1, 10), "Võlurikepp"));
 
+        varustuseList.lisaAsi(new Kaitserüü(Juhuslik.randint(1, 10), "Mõrane Raudrüü"));
+        varustuseList.lisaAsi(new Kaitserüü(Juhuslik.randint(1, 10), "Kantud Nahkvest"));
+        varustuseList.lisaAsi(new Kaitserüü(Juhuslik.randint(1, 10), "Käekaitsmed"));
+        varustuseList.lisaAsi(new Kaitserüü(Juhuslik.randint(1, 10), "Maagiline müts"));
+        varustuseList.lisaAsi(new Kaitserüü(Juhuslik.randint(1, 10), "Sõdurisaapad"));
+        varustuseList.lisaAsi(new Kaitserüü(10, "Kuldne Rüü"));
+
+        return varustuseList;
     }
 
     public static Image pilt (String path) {
@@ -501,5 +512,41 @@ public class Peaklassfx extends Application {
         });
 
         return scene;
+    }
+
+    public static Scene algusStseen(Stage pealava) {
+        Image taust = pilt("images/Taust.jpg");
+        ImageView taustapilt = new ImageView();
+        taustapilt.setImage(taust);
+        taustapilt.setFitWidth(laiusResolutsioon);
+        taustapilt.setFitHeight(kõrgusResolutsioon);
+
+        BorderPane bp = new BorderPane();
+        bp.getChildren().add(taustapilt);
+
+        Button valik1 = new Button("Alusta uut mängu");
+        Button valik2 = new Button("Jätka salvestatud mängu");
+
+        VBox vb = new VBox(valik1, valik2);
+        vb.setAlignment(Pos.CENTER);
+        bp.setCenter(vb);
+
+        pealava.widthProperty().addListener((observable, oldValue, newValue) -> {
+            taustapilt.setFitWidth((double) newValue);
+            double nuppuSuurus = (double) newValue*0.15;
+            nuppSuurusW(valik1,nuppuSuurus);
+            nuppSuurusW(valik2,nuppuSuurus);
+
+        });
+        pealava.heightProperty().addListener((observable, oldValue, newValue) -> {
+            taustapilt.setFitHeight((double) newValue);
+            double nuppuSuurus = (double) newValue*0.05;
+            nuppSuurusH(valik1,nuppuSuurus);
+            nuppSuurusH(valik2,nuppuSuurus);
+        });
+
+        valik1.setOnAction(actionEvent ->  {
+            pealava.setScene(liikumisStseen(pealava, ));
+        });
     }
 }
