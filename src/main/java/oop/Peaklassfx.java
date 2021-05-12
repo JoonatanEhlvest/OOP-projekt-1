@@ -55,7 +55,7 @@ public class Peaklassfx extends Application {
 
     public static List<Koobas> looKoobas() {
         /** VASTASTE NIMEDE LOOMINE */
-        List<String> nimed = Arrays.asList("Orc", "Maag","Lima","Zombie","Kummitus");
+        List<String> nimed = Arrays.asList("Orc","Maag","Lima","Zombie");
 
         /** KOOPA RUUMIDE LOOMINE JA SUVALISES JÄRJESTUSES KOOPASE PAIGUTAMINE*/
         List<Koobas> koobas = new ArrayList<>();
@@ -144,7 +144,7 @@ public class Peaklassfx extends Application {
         }
     }
 
-    public static Scene lõpuStseen(Stage pealava, List<Koobas> ruumid, int ruuminumber, Mängija m1) {
+    public static Scene bossStseen(Stage pealava, List<Koobas> ruumid, int ruuminumber, Mängija m1) {
         Lõpuruum lp = (Lõpuruum) ruumid.get(ruuminumber);
         Vastane vastane = lp.getVastane();
 
@@ -337,6 +337,7 @@ public class Peaklassfx extends Application {
                 teadeVastaseSurm.setFill(Color.WHITE);
                 teadeVastaseSurm.setFont(Font.font(30));
                 bp.setCenter(teadeVastaseSurm);
+                pealava.setScene(lõpuStseen(pealava));
             }
         });
 
@@ -375,6 +376,7 @@ public class Peaklassfx extends Application {
                                 teadeVastaseSurm.setFill(Color.WHITE);
                                 teadeVastaseSurm.setFont(Font.font(30));
                                 bp.getChildren().add(teadeVastaseSurm);
+                                pealava.setScene(lõpuStseen(pealava));
                             }
 
                         } catch (NumberFormatException e) {
@@ -1045,7 +1047,7 @@ public class Peaklassfx extends Application {
         }
         else if (ruumid.get(ruuminumber) instanceof Lõpuruum) { //TODO lõksuruumi scene
             edasi.setOnAction(actionEvent -> {
-                pealava.setScene(lõpuStseen(pealava));
+                pealava.setScene(bossStseen(pealava,ruumid,ruuminumber,m1));
             });
         }
 
