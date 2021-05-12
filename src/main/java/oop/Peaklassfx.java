@@ -282,7 +282,7 @@ public class Peaklassfx extends Application {
                 int eludennev = vastane.getElud();
                 Võitlus(m1, vastane);
                 int vahe = eludenne - m1.getElud();
-                if (vahe <= 0) pealava.setScene(lõpuStseen(pealava,false));
+                if (m1.getElud() <= 0) pealava.setScene(lõpuStseen(pealava,false));
                 int evahe = eludennev - vastane.getElud();
                 Text tekst = new Text("Ründad vastast!");
                 tekst.setFill(Color.WHITE);
@@ -709,7 +709,7 @@ public class Peaklassfx extends Application {
                 int eludennev = vastane.getElud();
                 Võitlus(m1, vastane);
                 int vahe = eludenne - m1.getElud();
-                if (vahe <= 0) pealava.setScene(lõpuStseen(pealava,false));
+                if (m1.getElud() <= 0) pealava.setScene(lõpuStseen(pealava,false));
                 int evahe = eludennev - vastane.getElud();
                 Text tekst = new Text("Ründad vastast!");
                 tekst.setFill(Color.WHITE);
