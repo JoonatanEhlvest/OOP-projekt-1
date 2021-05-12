@@ -29,11 +29,12 @@ public class Vastane extends Olend {
      * @param võimalikudAsjad (Varustus)
      * @param mängija (Mängija)
      */
-    public void sureb(Varustus võimalikudAsjad, Mängija mängija) {
+    public Varustus sureb(Varustus võimalikudAsjad, Mängija mängija) {
         super.sureb();
         int suvaline = Juhuslik.randint(0, võimalikudAsjad.getSize() - 1);
         Varustus asi = võimalikudAsjad.getKõikAsjad().get(suvaline);
         asi.varustusVõetud(asi);
+        /*
         System.out.println("Vastasel oli " + asi);
         if (asi instanceof Kaitserüü) {
             mängija.vahetaRüüd((Kaitserüü) asi);
@@ -41,6 +42,8 @@ public class Vastane extends Olend {
         if (asi instanceof Relv) {
             mängija.vahetaRelva((Relv) asi);
         }
+         */
+        return asi;
     }
 
     public int getKaitse() {
