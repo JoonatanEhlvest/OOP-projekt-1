@@ -28,6 +28,7 @@ import java.util.*;
 public class Peaklassfx extends Application {
     private static double laiusResolutsioon = 1280;
     private static double kõrgusResolutsioon = 720;
+    private static int raskus = 1;
 
     public static void main(String[] args) {
         launch(args);
@@ -59,8 +60,6 @@ public class Peaklassfx extends Application {
         /** KOOPA RUUMIDE LOOMINE JA SUVALISES JÄRJESTUSES KOOPASE PAIGUTAMINE*/
         List<Koobas> koobas = new ArrayList<>();
         Aarderuum aarderuum = new Aarderuum("Aarderuum");
-        Lõksuruum lõksuruum = new Lõksuruum(new Lõks(Juhuslik.randint(5,10),60,false));
-        int raskus = 1;
         Võitlusruum võitlusruum1 = new Võitlusruum(new Vastane(RandElem(nimed),Juhuslik.randint(10,20),Juhuslik.randint(3,5)*raskus,(raskus-1)*2),"Krüpt");
         Võitlusruum võitlusruum2 = new Võitlusruum(new Vastane(RandElem(nimed),Juhuslik.randint(10,20),Juhuslik.randint(3,5)*raskus,(raskus-1)*2),"Vana_Raamatukogu");
         Võitlusruum võitlusruum3 = new Võitlusruum(new Vastane(RandElem(nimed),Juhuslik.randint(10,20),Juhuslik.randint(3,5)*raskus,(raskus-1)*2),"Labor");
@@ -69,7 +68,6 @@ public class Peaklassfx extends Application {
         koobas.add(võitlusruum1);
         koobas.add(võitlusruum2);
         koobas.add(võitlusruum3);
-        koobas.add(lõksuruum);
         //Collections.shuffle(koobas);
         koobas.add(lõpuruum);
 
@@ -146,6 +144,254 @@ public class Peaklassfx extends Application {
         }
     }
 
+    public static Scene lõpuStseen(Stage pealava, List<Koobas> ruumid, int ruuminumber, Mängija m1) {
+        Lõpuruum lp = (Lõpuruum) ruumid.get(ruuminumber);
+        Vastane vastane = lp.getVastane();
+
+        Image taust = pilt("images/Bossruum.png");
+        ImageView taustapilt = new ImageView();
+        taustapilt.setImage(taust);
+        taustapilt.setFitWidth(laiusResolutsioon);
+        taustapilt.setFitHeight(kõrgusResolutsioon);
+
+        BorderPane bp = new BorderPane();
+        Scene scene = new Scene(bp, laiusResolutsioon, kõrgusResolutsioon);
+
+        bp.getChildren().add(taustapilt);
+
+        Image mängija = pilt("images/Player.png");
+        ImageView mängijapilt = new ImageView();
+        mängijapilt.setImage(mängija);
+
+        Text mängijaElud = new Text(String.valueOf(m1.getElud()));
+        Text mängijaMana = new Text(String.valueOf(m1.getMana()));
+        mängijaElud.setFill(Color.RED);
+        mängijaElud.setFont(Font.font(30));
+        mängijaMana.setFill(Color.BLUE);
+        mängijaMana.setFont(Font.font(30));
+
+        mängijapilt.setY(scene.getHeight() * 0.56);
+        mängijapilt.setX(scene.getWidth() * 0.15);
+        mängijapilt.setFitWidth(128 + scene.getWidth() * 0.1);
+        mängijapilt.setFitHeight(128 + scene.getWidth() * 0.1);
+        mängijapilt.setRotationAxis(Rotate.Y_AXIS);
+        mängijapilt.setRotate(180);
+
+        pealava.setMinHeight(720);
+        pealava.setMinWidth(1280);
+
+        mängijapilt.setY(scene.getHeight() * 0.56);
+        mängijapilt.setX(scene.getWidth() * 0.15);
+        mängijapilt.setFitWidth(128 + scene.getWidth() * 0.1);
+        mängijapilt.setFitHeight(128 + scene.getWidth() * 0.1);
+
+        TextFlow eludjamana = new TextFlow(mängijaElud,new Text("   "),mängijaMana);
+        eludjamana.setTranslateX(scene.getWidth() * 0.20);
+        eludjamana.setTranslateY(scene.getWidth() * 0.28);
+        bp.getChildren().add(eludjamana);
+
+        mängijapilt.setRotationAxis(Rotate.Y_AXIS);
+        mängijapilt.setRotate(180);
+
+        Image vastanepilt = pilt("images/Boss.png");
+        ImageView vastanePilt = new ImageView();
+        vastanePilt.setImage(vastanepilt);
+
+        Text vastaneElud = new Text(String.valueOf(vastane.getElud()));
+        vastaneElud.setFill(Color.RED);
+        vastaneElud.setFont(Font.font(30));
+
+        vastanePilt.setY(scene.getHeight() * 0.56);
+        vastanePilt.setX(scene.getWidth() * 0.6);
+        vastanePilt.setFitWidth(128 + scene.getWidth() * 0.1);
+        vastanePilt.setFitHeight(128 + scene.getWidth() * 0.1);
+
+        TextFlow elud = new TextFlow(vastaneElud);
+        elud.setTranslateX(scene.getWidth() * 0.67);
+        elud.setTranslateY(scene.getWidth() * 0.28);
+        bp.getChildren().add(elud);
+
+        bp.getChildren().add(mängijapilt);
+        bp.getChildren().add(vastanePilt);
+
+        // Nupud:
+        GridPane gridValikud = new GridPane();
+        gridValikud.setPadding(new Insets(15, 15, 15, 15));
+        gridValikud.setVgap(10);
+        gridValikud.setHgap(100);
+
+        // Nupp 1
+        Button ründa = new Button("Ründa");
+        GridPane.setConstraints(ründa, 0, 0);
+
+        // Nupp 2
+        Button maagia = new Button("Ründa maagiaga");
+        GridPane.setConstraints(maagia, 2, 0);
+
+        double nupuSuurusW = laiusResolutsioon*0.15;
+        double nupuSuurusH = laiusResolutsioon*0.05;
+        nuppSuurusW(ründa,nupuSuurusW);
+        nuppSuurusW(maagia,nupuSuurusW);
+        nuppSuurusH(ründa,nupuSuurusH);
+        nuppSuurusH(maagia,nupuSuurusH);
+
+        gridValikud.getChildren().addAll(ründa, maagia);
+        gridValikud.setAlignment(Pos.CENTER);
+
+        bp.setTop(gridValikud);
+
+        pealava.widthProperty().addListener((observable, oldValue, newValue) -> {
+            taustapilt.setFitWidth((double) newValue);
+            double nuppuSuurus = (double) newValue*0.15;
+            nuppSuurusW(ründa,nuppuSuurus);
+            nuppSuurusW(maagia,nuppuSuurus);
+
+            mängijapilt.setX(scene.getWidth() * 0.15);
+            mängijapilt.setFitWidth(128 + scene.getWidth() * 0.1);
+            eludjamana.setTranslateX(scene.getWidth() * 0.20);
+            eludjamana.setTranslateY(scene.getWidth() * 0.28);
+            bp.getChildren().add(eludjamana);
+
+            vastanePilt.setX(scene.getWidth() * 0.6);
+            vastanePilt.setFitWidth(128 + scene.getWidth() * 0.1);
+            elud.setTranslateX(scene.getWidth() * 0.67);
+            elud.setTranslateY(scene.getWidth() * 0.28);
+            bp.getChildren().add(elud);
+
+            laiusResolutsioon = (double) newValue;
+        });
+
+        pealava.heightProperty().addListener((observable, oldValue, newValue) -> {
+            taustapilt.setFitHeight((double) newValue);
+            double nuppuSuurus = (double) newValue*0.05;
+            nuppSuurusH(ründa,nuppuSuurus);
+            nuppSuurusH(maagia,nuppuSuurus);
+
+            mängijapilt.setY(scene.getHeight() * 0.56);
+            mängijapilt.setFitHeight(128 + scene.getWidth() * 0.1);
+
+            vastanePilt.setY(scene.getHeight() * 0.56);
+            vastanePilt.setFitHeight(128 + scene.getWidth() * 0.1);
+
+            kõrgusResolutsioon = (double) newValue;
+        });
+
+        ründa.setOnAction(actionEvent -> {
+            if (vastane.isElus()) {
+                int eludenne = m1.getElud();
+                int eludennev = vastane.getElud();
+                Võitlus(m1, vastane);
+                int vahe = eludenne - m1.getElud();
+                int evahe = eludennev - vastane.getElud();
+                Text tekst = new Text("Ründad vastast!");
+                tekst.setFill(Color.WHITE);
+                tekst.setFont(Font.font(30));
+                bp.setCenter(tekst);
+
+                Text mElud = new Text("-" + vahe);
+                mElud.setFill(Color.RED);
+                mElud.setFont(Font.font(40));
+
+                Text mMana = new Text("+3");
+                mMana.setFill(Color.BLUE);
+                mMana.setFont(Font.font(40));
+
+                Text eElud = new Text("-" + evahe);
+                eElud.setFill(Color.RED);
+                eElud.setFont(Font.font(40));
+                eElud.setX(scene.getWidth() * 0.8);
+                eElud.setY(scene.getHeight() * 0.6);
+
+                TextFlow mTekst = new TextFlow(mElud, new Text(System.lineSeparator()), mMana);
+
+                bp.getChildren().add(mTekst);
+                bp.getChildren().add(eElud);
+
+
+                BorderPane.setMargin(tekst, new Insets(10, 10, scene.getHeight() * 0.6, 10));
+
+                mTekst.setTranslateX(scene.getWidth() * 0.1);
+                mTekst.setTranslateY(scene.getHeight() * 0.6);
+                eElud.setX(scene.getWidth() * 0.8);
+                eElud.setY(scene.getHeight() * 0.7);
+
+                mängijaElud.setText(String.valueOf(m1.getElud()));
+                mängijaMana.setText(String.valueOf(m1.getMana()));
+                vastaneElud.setText(String.valueOf(vastane.getElud()));
+                PauseTransition pause1 = new PauseTransition(Duration.seconds(1.5));
+                pause1.setOnFinished(e -> {
+                    tekst.setText(null);
+                    mElud.setText(null);
+                    mMana.setText(null);
+                    eElud.setText(null);
+                });
+
+                pause1.play();
+                m1.taastaMana(3);
+            }
+            if (vastane.getElud()<=0) {
+                vastaneElud.setText(null);
+                vastanePilt.setRotationAxis(Rotate.Z_AXIS);
+                vastanePilt.setRotate(90);
+                Text teadeVastaseSurm = new Text("Alistasid oma vastase! Oled võitnud!.");
+                teadeVastaseSurm.setFill(Color.WHITE);
+                teadeVastaseSurm.setFont(Font.font(30));
+                bp.setCenter(teadeVastaseSurm);
+            }
+        });
+
+        // Maagiaga ründamine
+        maagia.setOnAction(actionEvent -> {
+            if (vastane.isElus()) {
+                int eludennev = vastane.getElud();
+                TextField sisestusAla = new TextField();
+                sisestusAla.setPromptText("Sisesta, mitme managa tahad vastast rünnata (täisarv) ja vajuta enter");
+                bp.setBottom(sisestusAla);
+                PauseTransition pausPärastRünnakut = new PauseTransition(Duration.seconds(3));
+                pausPärastRünnakut.setOnFinished(e -> {
+                    bp.setCenter(null);
+                });
+                sisestusAla.setOnKeyPressed(event -> {
+                    if (event.getCode().equals(KeyCode.ENTER)) {
+                        int rünnakuTugevus;
+                        CharSequence sisestus = sisestusAla.getCharacters();
+                        try {
+                            rünnakuTugevus = Integer.parseInt(String.valueOf(sisestus));
+                            m1.ründaMaagiaga(vastane, rünnakuTugevus);
+                            mängijaMana.setText(String.valueOf(m1.getMana()));
+                            bp.setBottom(null);
+                            Text edukasTekst = new Text("Ründasid vastast maagiaga ja tegid " + rünnakuTugevus + " punkti haiget");
+                            edukasTekst.setFill(Color.WHITE);
+                            edukasTekst.setFont(Font.font(30));
+                            bp.setCenter(edukasTekst);
+                            pausPärastRünnakut.play();
+
+                            vastaneElud.setText(String.valueOf(vastane.getElud()));
+                            if (vastane.getElud()<=0) {
+                                vastane.setElud(0);
+                                vastanePilt.setRotationAxis(Rotate.Z_AXIS);
+                                vastanePilt.setRotate(90);
+                                Text teadeVastaseSurm = new Text("Alistasid oma vastase! Võid ohutult edasi liikuda.");
+                                teadeVastaseSurm.setFill(Color.WHITE);
+                                teadeVastaseSurm.setFont(Font.font(30));
+                                bp.getChildren().add(teadeVastaseSurm);
+                            }
+
+                        } catch (NumberFormatException e) {
+                            Text exceptionText = new Text("Sisestasid vigase numbri: " + sisestus + "\nPalun sisesta täisarv");
+                            exceptionText.setFill(Color.WHITE);
+                            exceptionText.setFont(Font.font(30));
+                            bp.setCenter(exceptionText);
+                            pausPärastRünnakut.play();
+                        }
+
+                    }
+                });
+            }
+        });
+        return scene;
+    }
+
     public static Scene aarderuumStseen(Stage pealava, List<Koobas> ruumid, int ruuminumber, Mängija m1, Varustus varustuseList) {
         Image taust = pilt("images/Aarderuum.jpg");
         ImageView taustapilt = new ImageView();
@@ -174,8 +420,8 @@ public class Peaklassfx extends Application {
         double nupuSuurusW = laiusResolutsioon*0.15;
         double nupuSuurusH = laiusResolutsioon*0.05;
 
-        pealava.setMinHeight(757);
-        pealava.setMinWidth(1293);
+        pealava.setMinHeight(720);
+        pealava.setMinWidth(1280);
 
         GridPane edasigrid = new GridPane();
 
@@ -195,6 +441,8 @@ public class Peaklassfx extends Application {
         Button Jah = new Button("Jah");
         Jah.setPrefWidth(kõrgusResolutsioon*0.15);
         Jah.setPrefHeight(laiusResolutsioon*0.05);
+
+
         GridPane.setConstraints(Jah, 0, 3);
 
         // Ei
@@ -207,7 +455,7 @@ public class Peaklassfx extends Application {
         GridPane.setConstraints(itemDesc, 0, 1);
 
         edasigrid.getChildren().addAll(itemDesc,Jah,Ei, kontroll);
-        edasigrid.setTranslateX(scene.getWidth()*0.3);
+        edasigrid.setTranslateX(scene.getWidth()*0.2);
         edasigrid.setTranslateY(scene.getHeight()*0.3);
 
         bp.setCenter(edasigrid);
@@ -225,9 +473,9 @@ public class Peaklassfx extends Application {
 
             mängijapilt.setX(scene.getWidth() * 0.15);
             mängijapilt.setFitWidth(128 + scene.getWidth() * 0.1);
-            edasigrid.setTranslateX(scene.getWidth()*0.3);
-            Ei.setPrefWidth(scene.getHeight()*0.15);
-            Jah.setPrefWidth(scene.getHeight()*0.15);
+            edasigrid.setTranslateX(scene.getWidth()*0.2);
+            Ei.setPrefWidth(scene.getWidth()*0.15);
+            Jah.setPrefWidth(scene.getWidth()*0.15);
             laiusResolutsioon = (double) newValue;
         });
 
@@ -382,8 +630,8 @@ public class Peaklassfx extends Application {
         });
         pause.play();
 
-        pealava.setMinHeight(757);
-        pealava.setMinWidth(1293);
+        pealava.setMinHeight(720);
+        pealava.setMinWidth(1280);
 
         pealava.widthProperty().addListener((observable, oldValue, newValue) -> {
             taustapilt.setFitWidth((double) newValue);
@@ -459,15 +707,6 @@ public class Peaklassfx extends Application {
                 Võitlus(m1, vastane);
                 int vahe = eludenne - m1.getElud();
                 int evahe = eludennev - vastane.getElud();
-                if (evahe<=0) {
-                    vastane.setElud(0);
-                    vastanePilt.setRotationAxis(Rotate.Z_AXIS);
-                    vastanePilt.setRotate(90);
-                    Text teadeVastaseSurm = new Text("Alistasid oma vastase! Võid ohutult edasi liikuda.");
-                    teadeVastaseSurm.setFill(Color.WHITE);
-                    teadeVastaseSurm.setFont(Font.font(30));
-                    bp.setCenter(teadeVastaseSurm);
-                }
                 Text tekst = new Text("Ründad vastast!");
                 tekst.setFill(Color.WHITE);
                 tekst.setFont(Font.font(30));
@@ -518,6 +757,18 @@ public class Peaklassfx extends Application {
 
                 pause1.play();
                 m1.taastaMana(3);
+            }
+            if (vastane.getElud()<=0) {
+                m1.setElud(m1.getElud()+3);
+                if (m1.getElud() > 40) m1.setElud(40);
+                vastaneElud.setText(null);
+                vastanePilt.setRotationAxis(Rotate.Z_AXIS);
+                vastanePilt.setRotate(90);
+                Text teadeVastaseSurm = new Text("Alistasid oma vastase! Võid ohutult edasi liikuda.");
+                teadeVastaseSurm.setFill(Color.WHITE);
+                teadeVastaseSurm.setFont(Font.font(30));
+                bp.setCenter(teadeVastaseSurm);
+                raskus += 1;
             }
         });
         põgene.setOnAction(actionEvent -> {
@@ -608,7 +859,7 @@ public class Peaklassfx extends Application {
                 TextField sisestusAla = new TextField();
                 sisestusAla.setPromptText("Sisesta, mitme managa tahad vastast rünnata (täisarv) ja vajuta enter");
                 bp.setBottom(sisestusAla);
-                PauseTransition pausPärastRünnakut = new PauseTransition(Duration.seconds(3));
+                PauseTransition pausPärastRünnakut = new PauseTransition(Duration.seconds(2));
                 pausPärastRünnakut.setOnFinished(e -> {
                     bp.setCenter(null);
                 });
@@ -629,13 +880,16 @@ public class Peaklassfx extends Application {
 
                             vastaneElud.setText(String.valueOf(vastane.getElud()));
                             if (vastane.getElud()<=0) {
-                                vastane.setElud(0);
+                                m1.setElud(m1.getElud()+3);
+                                if (m1.getElud() > 40) m1.setElud(40);
+                                vastaneElud.setText(null);
                                 vastanePilt.setRotationAxis(Rotate.Z_AXIS);
                                 vastanePilt.setRotate(90);
                                 Text teadeVastaseSurm = new Text("Alistasid oma vastase! Võid ohutult edasi liikuda.");
                                 teadeVastaseSurm.setFill(Color.WHITE);
                                 teadeVastaseSurm.setFont(Font.font(30));
                                 bp.getChildren().add(teadeVastaseSurm);
+                                raskus += 1;
                             }
 
                         } catch (NumberFormatException e) {
@@ -789,7 +1043,7 @@ public class Peaklassfx extends Application {
                 pealava.setScene(aarderuumStseen(pealava,ruumid,ruuminumber+1,m1,varustuseList));
             });
         }
-        else if (ruumid.get(ruuminumber) instanceof Lõksuruum) { //TODO lõksuruumi scene
+        else if (ruumid.get(ruuminumber) instanceof Lõpuruum) { //TODO lõksuruumi scene
             edasi.setOnAction(actionEvent -> {
                 pealava.setScene(lõpuStseen(pealava));
             });
