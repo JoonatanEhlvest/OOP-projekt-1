@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -452,6 +453,8 @@ public class Peaklassfx extends Application {
             }
         });
         maagia.setOnAction(actionEvent -> {
+            HBox hp = new HBox();
+            TextField sisestus = new TextField();
             int rünnakuTugevus = 10; // TODO sisestamine selle tugevuse jaoks
             m1.ründaMaagiaga(vastane, rünnakuTugevus);
             mängijaMana.setText(String.valueOf(m1.getMana()));
