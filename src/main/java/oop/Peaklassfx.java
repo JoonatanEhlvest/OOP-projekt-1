@@ -35,8 +35,6 @@ public class Peaklassfx extends Application {
     @Override
     public void start(Stage pealava) {
 
-
-
         /** MÄNG ALGAB SIIT */
         pealava.setTitle("Basic Dungeon");
         Scene algusStseen = algusStseen(pealava);
@@ -705,6 +703,26 @@ public class Peaklassfx extends Application {
             Mängija m1 = looMängija();
             Varustus varustuseList = looVarustuseList();
             List<Koobas> koobas = looKoobas();
+            int ruuminumber = 0;
+            Scene liikumisStseen = liikumisStseen(pealava, koobas, ruuminumber, m1, varustuseList);
+            pealava.setScene(liikumisStseen);
+        });
+
+        valik2.setOnAction(actionEvent ->  {
+            Mängija m1;
+            Varustus varustuseList;
+            List<Koobas> koobas;
+
+            try { m1 = SalvestuseLugeja.loeMängija();
+            varustuseList = SalvestuseLugeja.loeVarustusList();
+            koobas = SalvestuseLugeja.loeKoobas();}
+            catch (Exception e) {
+                System.out.println("Salvestatu lugemisel tekkis viga: " + e);
+                System.out.println("Alustan uut mängu");
+                m1 = looMängija();
+                varustuseList = looVarustuseList();
+                koobas = looKoobas();
+            }
             int ruuminumber = 0;
             Scene liikumisStseen = liikumisStseen(pealava, koobas, ruuminumber, m1, varustuseList);
             pealava.setScene(liikumisStseen);
