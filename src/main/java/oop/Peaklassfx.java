@@ -68,8 +68,8 @@ public class Peaklassfx extends Application {
         Võitlusruum võitlusruum3 = new Võitlusruum(new Vastane(RandElem(nimed),Juhuslik.randint(10,20),Juhuslik.randint(3,5)*raskus,(raskus-1)*2),"Labor");
         Lõpuruum lõpuruum = new Lõpuruum(new Vastane("Maailma Hävitaja Võlur",100,13,5),"Viimane Tuba");
         //koobas.add(aarderuum);
-        //koobas.add(võitlusruum1);
-        //koobas.add(võitlusruum2);
+        koobas.add(võitlusruum1);
+        koobas.add(võitlusruum2);
         koobas.add(võitlusruum3);
         koobas.add(lõksuruum);
         //Collections.shuffle(koobas);
