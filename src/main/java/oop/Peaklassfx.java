@@ -20,6 +20,7 @@ import javafx.util.Duration;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
@@ -487,6 +488,16 @@ public class Peaklassfx extends Application {
 
         välju.setOnAction(actionEvent ->  {
             //TODO salvestamine
+            try {
+            Salvestaja.salvestaMängija(m1);
+            Salvestaja.salvestaKoobas(ruumid);
+            Salvestaja.salvestaVarustus(varustuseList);
+            }
+            catch (IOException e) {
+                System.out.println("Viga salvestamisega:" + e);
+                throw new RuntimeException(e);
+            }
+            pealava.close();
         });
 
         return scene;
