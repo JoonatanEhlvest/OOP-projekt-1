@@ -197,7 +197,7 @@ public class Peaklassfx extends Application {
         mängijapilt.setRotationAxis(Rotate.Y_AXIS);
         mängijapilt.setRotate(180);
 
-        Image vastanepilt = pilt("images/"+vastane.getNimi()+".png");
+        Image vastanepilt = pilt("images/Boss.png");
         ImageView vastanePilt = new ImageView();
         vastanePilt.setImage(vastanepilt);
 
@@ -1200,5 +1200,5 @@ public class Peaklassfx extends Application {
         return algusStseen;
     }
 
-    
+
 }
