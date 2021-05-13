@@ -357,7 +357,7 @@ public class Peaklassfx extends Application {
                             m1.ründaMaagiaga(vastane, rünnakuTugevus);
                             mängijaMana.setText(String.valueOf(m1.getMana()));
                             bp.setBottom(null);
-                            Text edukasTekst = new Text("Ründasid vastast maagiaga ja tegid " + rünnakuTugevus + " punkti haiget");
+                            Text edukasTekst = new Text("Ründasid vastast maagiaga");
                             edukasTekst.setFill(Color.WHITE);
                             edukasTekst.setFont(Font.font(30));
                             bp.setCenter(edukasTekst);
@@ -861,7 +861,7 @@ public class Peaklassfx extends Application {
                             m1.ründaMaagiaga(vastane, rünnakuTugevus);
                             mängijaMana.setText(String.valueOf(m1.getMana()));
                             bp.setBottom(null);
-                            Text edukasTekst = new Text("Ründasid vastast maagiaga ja tegid " + rünnakuTugevus + " punkti haiget");
+                            Text edukasTekst = new Text("Ründasid vastast maagiaga");
                             edukasTekst.setFill(Color.WHITE);
                             edukasTekst.setFont(Font.font(30));
                             bp.setCenter(edukasTekst);
@@ -898,6 +898,15 @@ public class Peaklassfx extends Application {
 
     }
 
+    /**
+     * Stseen, kus saabb mänu seisu salvestada, vaadata kaarti või infot mängija kohta ja minna edasi järgmisesse ruumi.
+     * @param pealava (Stage) Lava, millele stseen lisatakse
+     * @param ruumid (List<Koobas>) Mängu ruumide list
+     * @param ruuminumber (int) Ruumi number, millese järgmisena minnakse
+     * @param m1 (Mängija) Mängia tegelane
+     * @param varustuseList (Varustus) Varustus, mida on vastane alistades võimalik saada.
+     * @return (Scene) Tagastab liikumisStseeni
+     */
     public static Scene liikumisStseen(Stage pealava, List<Koobas> ruumid,int ruuminumber, Mängija m1, Varustus varustuseList) {
         Image taust;
         if (ruuminumber == 0) taust = pilt("images/Taust.jpg");
@@ -1016,7 +1025,6 @@ public class Peaklassfx extends Application {
         });
 
         if (ruumid.get(ruuminumber) instanceof Võitlusruum) {
-
             edasi.setOnAction(actionEvent -> {
                 pealava.setScene(võitlusStseen(pealava, ruumid, ruuminumber+1, m1, varustuseList));
             });
@@ -1113,6 +1121,11 @@ public class Peaklassfx extends Application {
         return scene;
     }
 
+    /**
+     * Mängu esimene stseen, kus saab kas uut mängu alustada või salvestatud mängu jätkata
+     * @param pealava (Stagae) Lava, millele stseen lisatakse
+     * @return (Scene) Tagastab alsusStseeni
+     */
     public static Scene algusStseen(Stage pealava) {
         Image taust = pilt("images/Taust.jpg");
         ImageView taustapilt = new ImageView();
@@ -1137,12 +1150,13 @@ public class Peaklassfx extends Application {
         vb.setAlignment(Pos.CENTER);
         bp.setCenter(vb);
 
+        // Suuruste muutmine
         pealava.widthProperty().addListener((observable, oldValue, newValue) -> {
             taustapilt.setFitWidth((double) newValue);
             double nuppuSuurus = (double) newValue*0.15;
             nuppSuurusW(valik1,nuppuSuurus);
             nuppSuurusW(valik2,nuppuSuurus);
-            // Lahutame välja timmitud arvu piksleid, kuna muidu muutus aken stseene vahetades järjest suuremaks
+            // Lahutame kindla arvu piksleid, kuna muidu muutus aken stseene vahetades järjest suuremaks
             laiusResolutsioon = (double) newValue- 16;
         });
         pealava.heightProperty().addListener((observable, oldValue, newValue) -> {
@@ -1150,10 +1164,9 @@ public class Peaklassfx extends Application {
             double nuppuSuurus = (double) newValue*0.05;
             nuppSuurusH(valik1,nuppuSuurus);
             nuppSuurusH(valik2,nuppuSuurus);
-            // Lahutame välja timmitud arvu piksleid, kuna muidu muutus aken stseene vahetades järjest suuremaks
+            // Lahutame kindla arvu piksleid, kuna muidu muutus aken stseene vahetades järjest suuremaks
             kõrgusResolutsioon = (double) newValue - 39;
         });
-
 
         valik1.setOnAction(actionEvent ->  {
             Mängija m1 = looMängija();
@@ -1164,6 +1177,7 @@ public class Peaklassfx extends Application {
             pealava.setScene(liikumisStseen);
         });
 
+        // Salvestatud mängu lugemine
         valik2.setOnAction(actionEvent ->  {
             Mängija m1;
             Varustus varustuseList;
@@ -1174,6 +1188,7 @@ public class Peaklassfx extends Application {
             varustuseList = SalvestuseLugeja.loeVarustusList();
             koobas = SalvestuseLugeja.loeKoobas();
             ruuminumber = SalvestuseLugeja.loeRuuminumber();}
+            // Kui salvestatud mängu ei õnnestu sisse lugeda, alustatakse uut mängu
             catch (Exception e) {
                 System.out.println("Salvestatu lugemisel tekkis viga: " + e);
                 System.out.println("Alustan uut mängu");
@@ -1181,7 +1196,7 @@ public class Peaklassfx extends Application {
                 varustuseList = looVarustuseList();
                 koobas = looKoobas();
             }
-
+            // Läheme edasi liikumisStseeni
             Scene liikumisStseen = liikumisStseen(pealava, koobas, ruuminumber, m1, varustuseList);
             pealava.setScene(liikumisStseen);
         });
@@ -1189,7 +1204,14 @@ public class Peaklassfx extends Application {
         return algusStseen;
     }
 
+    /**
+     * Luuakse mängu viimane stseen, milleni jõutakse kas surres või mängu viimane vastane alistades.
+     * @param pealava (Stage) Lava, millele stseen lisatakse.
+     * @param võit (boolean) True, kui mängija läbis mängu, false kui mängija sai surma.
+     * @return (Scene) Tagastab lõpustseeni
+     */
     public static Scene lõpuStseen(Stage pealava,boolean võit) {
+        // Määrab taustapildi
         Image taust = pilt("images/Taust.jpg");
         ImageView taustapilt = new ImageView();
         taustapilt.setImage(taust);
@@ -1199,11 +1221,13 @@ public class Peaklassfx extends Application {
         BorderPane bp = new BorderPane();
         bp.getChildren().add(taustapilt);
 
-        Text õnnitlused = null;
+        // Loome sobiva teate
+        Text õnnitlused;
         if (võit) õnnitlused = new Text("Olete mängu võitnud!");
         else õnnitlused = new Text("Said surma!");
         õnnitlused.setFill(Color.WHITE);
         õnnitlused.setFont(Font.font(30));
+
         Button valik1 = new Button("Välju mängust");
         Button valik2 = new Button("Alusta uut mängu");
 
@@ -1219,11 +1243,12 @@ public class Peaklassfx extends Application {
         vb.setAlignment(Pos.CENTER);
         bp.setCenter(vb);
 
+        // Objektide suuruste muutmine vastavalt pealava suuruse muutumisele
         pealava.widthProperty().addListener((observable, oldValue, newValue) -> {
             taustapilt.setFitWidth((double) newValue);
             double nuppuSuurus = (double) newValue*0.15;
             nuppSuurusW(valik1,nuppuSuurus);
-
+            nuppSuurusW(valik2, nuppuSuurus);
         });
         pealava.heightProperty().addListener((observable, oldValue, newValue) -> {
             taustapilt.setFitHeight((double) newValue);
@@ -1232,11 +1257,11 @@ public class Peaklassfx extends Application {
             nuppSuurusH(valik2,nuppuSuurus);
         });
 
-
+        // Sulgeme mängu
         valik1.setOnAction(actionEvent ->  {
             pealava.close();
         });
-
+        // Läheme tagasi algusStseeni
         valik2.setOnAction(actionEvent ->  {
             pealava.setScene(algusStseen(pealava));
         });
