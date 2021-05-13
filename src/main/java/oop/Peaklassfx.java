@@ -48,18 +48,25 @@ public class Peaklassfx extends Application {
 
     }
 
+    /**
+     * Loob mängija tegelase
+     * @return (Mängija)
+     */
     public static Mängija looMängija() {
-        /** MÄNGIJA LOOMINE */
         Mängija m1 = new Mängija("Player 1", 40, 20, 5,4,3);
         m1.setKaitserüü(new Kaitserüü(0,"Tavalised Riided"));
         return m1;
     }
 
+    /**
+     * Loob koopa ruumidest koosneva listi
+     * @return (List<Koobas>)
+     */
     public static List<Koobas> looKoobas() {
-        /** VASTASTE NIMEDE LOOMINE */
+        /* VASTASTE NIMEDE LOOMINE */
         List<String> nimed = Arrays.asList("Orc","Maag","Lima","Zombie");
 
-        /** KOOPA RUUMIDE LOOMINE JA SUVALISES JÄRJESTUSES KOOPASE PAIGUTAMINE*/
+        /* KOOPA RUUMIDE LOOMINE*/
         List<Koobas> koobas = new ArrayList<>();
         Aarderuum aarderuum = new Aarderuum("Aarderuum");
         Võitlusruum võitlusruum1 = new Võitlusruum(new Vastane(RandElem(nimed),Juhuslik.randint(10,20),Juhuslik.randint(3,5)*raskus,(raskus-1)*2),"Krüpt");
@@ -76,8 +83,12 @@ public class Peaklassfx extends Application {
         return koobas;
     }
 
+    /**
+     * Loob varustuse, mida mängija mängu käigus leida võib
+     * @return (Varustus)
+     */
     public static Varustus looVarustuseList() {
-        /** VARUSTUSE LOOMINE JA LISAMINE VARUSTUSE LISTI */
+        /* VARUSTUSE LOOMINE JA LISAMINE VARUSTUSE LISTI */
         Varustus varustuseList = new Varustus();
 
         varustuseList.lisaAsi(new Relv(3, "Katkine Mõõk"));
@@ -99,6 +110,11 @@ public class Peaklassfx extends Application {
         return varustuseList;
     }
 
+    /**
+     * Loeb failist pildi
+     * @param path (String) faili asukoht
+     * @return (Image) pilt
+     */
     public static Image pilt (String path) {
         try {
             InputStream is = new FileInputStream(path);
@@ -123,6 +139,11 @@ public class Peaklassfx extends Application {
         return list.get(rand.nextInt(list.size()));
     }
 
+    /**
+     * Soritab võitluse mängija ja vastase vahel, kus mängija ründab vastast ja vastane mängijat
+     * @param mängija (Mängija)
+     * @param vastane (Vastane)
+     */
     private static void Võitlus(Mängija mängija, Vastane vastane) {
         if (mängija.getRelv() == null) { // Kui mängijal ei ole relva, siis ründab käega
             if (mängija.isElus()) { // kui mängija on elus, siis ründa
