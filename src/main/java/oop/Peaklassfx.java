@@ -606,6 +606,9 @@ public class Peaklassfx extends Application {
 
         bp.setTop(gridValikud);
 
+        Text teadeVastaseSurm = new Text("Alistasid oma vastase! Võid ohutult edasi liikuda.");
+        teadeVastaseSurm.setFill(Color.WHITE);
+        teadeVastaseSurm.setFont(Font.font(30));
 
         Text hoiatus = new Text("Saad ohutult edasi liikuda kui vastane on surnud!");
         if (vr.getNimi().equals("Labor")) {
@@ -753,10 +756,7 @@ public class Peaklassfx extends Application {
                 vastaneElud.setText(null);
                 vastanePilt.setRotationAxis(Rotate.Z_AXIS);
                 vastanePilt.setRotate(90);
-                Text teadeVastaseSurm = new Text("Alistasid oma vastase! Võid ohutult edasi liikuda.");
-                teadeVastaseSurm.setFill(Color.WHITE);
-                teadeVastaseSurm.setFont(Font.font(30));
-                bp.setCenter(teadeVastaseSurm);
+                bp.setBottom(teadeVastaseSurm);
                 raskus += 1;
             }
         });
@@ -874,10 +874,7 @@ public class Peaklassfx extends Application {
                                 vastaneElud.setText(null);
                                 vastanePilt.setRotationAxis(Rotate.Z_AXIS);
                                 vastanePilt.setRotate(90);
-                                Text teadeVastaseSurm = new Text("Alistasid oma vastase! Võid ohutult edasi liikuda.");
-                                teadeVastaseSurm.setFill(Color.WHITE);
-                                teadeVastaseSurm.setFont(Font.font(30));
-                                bp.getChildren().add(teadeVastaseSurm);
+                                bp.setBottom(teadeVastaseSurm);
                                 raskus += 1;
                             }
 
