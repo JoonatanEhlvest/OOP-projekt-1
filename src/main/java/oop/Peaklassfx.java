@@ -864,7 +864,7 @@ public class Peaklassfx extends Application {
                 GridPane.setConstraints(tekst, 0, 0);
                 edasigrid.getChildren().addAll(tekst,itemDesc,Jah,Ei, kontroll);
 
-                bp.setCenter(edasigrid);
+                bp.setLeft(edasigrid);
                 BorderPane.setMargin(edasigrid, new Insets(scene.getHeight() * 0.2, 0, 0, 0));
                 Jah.setOnAction(actionEvent1 -> {
                     if (item instanceof Relv) m1.setRelv((Relv) item);
